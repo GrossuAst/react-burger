@@ -5,12 +5,9 @@
     grid-area: ingredients;
 }
 
-.ingredientSection {
-    overflow-y: scroll;
-}
-
 .ingredientsContainer {
     overflow-y: scroll;
+    max-height: 656px;
 }
 
 .ingredientName {
@@ -18,8 +15,6 @@
 }
 
 .list {
-    /* padding: 0; */
-    /* margin: 0; */
     list-style: none;
     display: flex;
     flex-wrap: wrap;

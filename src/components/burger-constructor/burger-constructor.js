@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import { data } from "../../utils/constants";
 
@@ -40,6 +41,13 @@ function BurgerConstructor() {
             </div>
       </section>
     )
-}
+};
+
+BurgerConstructor.propTypes = {
+    data: PropTypes.array,
+    name: PropTypes.string,
+    image: PropTypes.string,
+    price: PropTypes.number,
+};
 
 export default BurgerConstructor;

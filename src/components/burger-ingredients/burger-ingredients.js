@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import { data } from "../../utils/constants";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+
 import IngredientCard from "./ingredient-card/ingredient-card";
 
 import stylesBurgerIngredients from './burger-ingredients.module.css';
@@ -23,8 +25,7 @@ function BurgerIngredients() {
                     Начинки
                 </Tab>
             </div>
-            <div>
-                <div className={ `pt-10 custom-scroll ${stylesBurgerIngredients.ingredientsContainer}` }>
+            <div className={ `pt-10 custom-scroll ${stylesBurgerIngredients.ingredientsContainer}` }>
                 <h2 className={ `mb-6 ${stylesBurgerIngredients.ingredientName}` }>Булки</h2>
                 <ul className={ `pl-4 mb-10 ${stylesBurgerIngredients.list}` }>
                     {
@@ -63,12 +64,35 @@ function BurgerIngredients() {
                         ))
                     }
                 </ul>
-                
+                <h2 className={ `mb-6 mt-10 ${stylesBurgerIngredients.ingredientName}` }>Начинки</h2>
+                <ul className={ `pl-4 ${stylesBurgerIngredients.list}` }>
+                    {
+                        data.filter((item) => {
+                            if(item.type === 'main') {
+                                return item
+                            }
+                        })
+                        .map((i) => (
+                            <li key={ i._id } className={ stylesBurgerIngredients.listItem }>
+                                <IngredientCard 
+                                    name={ i.name }
+                                    image={ i.image }
+                                    price={ i.price }
+                                />
+                            </li>    
+                        ))
+                    }
+                </ul>
             </div>
-            </div>
-            
         </section>
     );
+};
+
+BurgerIngredients.propTypes = {
+    data: PropTypes.array,
+    name: PropTypes.string,
+    image: PropTypes.string,
+    price: PropTypes.number,
 };
 
 export default BurgerIngredients;

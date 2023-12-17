@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -14,6 +15,13 @@ function IngredientCard({ name, image, price }) {
             <div className={ `${stylesIngredientCard.number} ${name.includes('Краторная булка') && `${stylesIngredientCard.number_visible}`}` }>1</div>
         </article>
     )
+};
+
+IngredientCard.propTypes = {
+    // data: PropTypes.array,
+    name: PropTypes.string,
+    image: PropTypes.string,
+    price: PropTypes.number,
 };
 
 export default IngredientCard;
