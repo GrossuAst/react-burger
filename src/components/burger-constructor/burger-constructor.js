@@ -3,6 +3,7 @@ import React from "react";
 import { data } from "../../utils/constants";
 
 import { ConstructorElement, DragIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+
 import diamond from '../../images/diamond36x36.svg';
 
 import stylesBurgerConstructor from './burger-constructor.module.css';
@@ -21,7 +22,7 @@ function BurgerConstructor() {
                                     isLocked={ i.type === 'bun' ? true : false }
                                     text={ data.indexOf(i) === 0 ? i.name + ' (Верх)' : i.name && data.indexOf(i) === data.length - 1 ? i.name + ' (Низ)' : i.name}
                                     price={ i.price }
-                                    thumbnail={ i.img }
+                                    thumbnail={ i.image_large }
                                 />
                             </li>
                         ))
