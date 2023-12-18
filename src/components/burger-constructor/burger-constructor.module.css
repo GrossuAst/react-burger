@@ -1,20 +1,24 @@
+.section {
+    display: flex;
+    flex-direction: column;
+}
+
 .container {
-    height: 812px;
+    height: 656px;
     width: 593px;
-    /* outline: 1px solid yellow; */
     grid-area: constructor;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
 }
 
 .list {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding: 0;
-    margin: 0;
-    max-height: 656px;
+    max-height: 464px;
     overflow-y: scroll;
     align-items: flex-end;
-    /* outline: 1px solid green; */
 }
 
 .listItem {
@@ -27,7 +31,7 @@
 
 .confirmation {
     box-sizing: border-box;
-    padding-right: 20px;
+    padding-right: 57px;
     display: flex;
     justify-content: end;
 }

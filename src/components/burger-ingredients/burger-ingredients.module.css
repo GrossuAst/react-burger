@@ -5,6 +5,10 @@
     grid-area: ingredients;
 }
 
+.tabContainer {
+    display: flex;
+}
+
 .ingredientsContainer {
     overflow-y: scroll;
     max-height: 656px;

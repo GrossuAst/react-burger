@@ -1,20 +1,22 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-import { data } from "../../utils/constants";
-
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import IngredientCard from "./ingredient-card/ingredient-card";
 
 import stylesBurgerIngredients from './burger-ingredients.module.css';
 
-function BurgerIngredients() {
-    const [current, setCurrent] = React.useState('Булки')
+function BurgerIngredients({ data }) {
+    const [current, setCurrent] = React.useState('Булки');
+
+    const buns = React.useMemo(() => data.filter((e) => e.type === 'bun'), [data]);
+    const mains = React.useMemo(() => data.filter((e) => e.type === 'main'), [data]);
+    const sauces = React.useMemo(() => data.filter((e) => e.type === 'sauce'), [data]);
 
     return (
         <section className={ stylesBurgerIngredients.container }>
-            <div style={{ display: 'flex' }}>
+            <div className={ stylesBurgerIngredients.tabContainer }>
                 <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
                     Булки
                 </Tab>
@@ -29,12 +31,7 @@ function BurgerIngredients() {
                 <h2 className={ `mb-6 ${stylesBurgerIngredients.ingredientName}` }>Булки</h2>
                 <ul className={ `pl-4 mb-10 ${stylesBurgerIngredients.list}` }>
                     {
-                        data.filter((item) => {
-                            if(item.type === 'bun') {
-                                return item
-                            }
-                        })
-                        .map((i) => (
+                        buns.map((i) => (
                             <li key={ i._id } className={ stylesBurgerIngredients.listItem }>
                                 <IngredientCard 
                                     name={ i.name }
@@ -48,12 +45,7 @@ function BurgerIngredients() {
                 <h2 className={ `mb-6 mt-10 ${stylesBurgerIngredients.ingredientName}` }>Соусы</h2>
                 <ul className={ `pl-4 ${stylesBurgerIngredients.list}` }>
                     {
-                        data.filter((item) => {
-                            if(item.type === 'sauce') {
-                                return item
-                            }
-                        })
-                        .map((i) => (
+                        sauces.map((i) => (
                             <li key={ i._id } className={ stylesBurgerIngredients.listItem }>
                                 <IngredientCard 
                                     name={ i.name }
@@ -67,12 +59,7 @@ function BurgerIngredients() {
                 <h2 className={ `mb-6 mt-10 ${stylesBurgerIngredients.ingredientName}` }>Начинки</h2>
                 <ul className={ `pl-4 ${stylesBurgerIngredients.list}` }>
                     {
-                        data.filter((item) => {
-                            if(item.type === 'main') {
-                                return item
-                            }
-                        })
-                        .map((i) => (
+                        mains.map((i) => (
                             <li key={ i._id } className={ stylesBurgerIngredients.listItem }>
                                 <IngredientCard 
                                     name={ i.name }
@@ -89,10 +76,7 @@ function BurgerIngredients() {
 };
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.array,
-    name: PropTypes.string,
-    image: PropTypes.string,
-    price: PropTypes.number,
+    data: PropTypes.array.isRequired,
 };
 
 export default BurgerIngredients;
