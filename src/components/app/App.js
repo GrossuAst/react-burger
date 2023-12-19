@@ -1,45 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 
-import { data } from '../../utils/constants';
+import { getData } from "../../utils/constants";
 
-import AppHeader from '../app-header/app-header';
-import Main from '../main/main';
-
-import { apiConfig } from '../../utils/constants';
+import AppHeader from "../app-header/app-header";
+import Main from "../main/main";
 
 function App() {
 
-  // function getData() {
-  //   return fetch(apiConfig.url, {
-  //     method: 'GET',
-  //     headers: apiConfig.headers,
-  //   })
-  //     .then((res) => {
-  //       if(res.ok) {
-  //         return res.json();
-  //       }
-  //       return Promise.reject(`Ошибка ${res.status}`);
-  //     })
-  // }
+  const [initialData, setInitialData] = useState(null);
 
-  // React.useEffect(() => {
-  //   getData()
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // }, []);
+  useEffect(() => {
+    getData()
+      .then((res) => {
+        setInitialData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>
       <AppHeader />
-      <Main 
-        data={ data }
-      />
+      { initialData && <Main data={ initialData } /> }
     </>
   );
-}
+};
 
 export default App;

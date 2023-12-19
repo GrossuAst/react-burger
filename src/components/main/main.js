@@ -18,7 +18,7 @@ function Main({ data }) {
             />
         </main>
     )
-};
+}
 
 Main.propTypes = {
     data: PropTypes.array.isRequired,
