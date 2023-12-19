@@ -8,9 +8,10 @@ import Modal from "../modal/modal";
 const modalRoot = document.querySelector('#modal-root');
 
 class ModalOverlay extends React.Component {
+
     render() {
         const { children, headerText, hanldeCloseModal, handleOverlayClick, name, isOpen, style } = this.props;
-        
+
         return ReactDOM.createPortal(
             (
                 <div 
