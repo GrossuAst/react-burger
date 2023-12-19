@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    /* overflow: visible; */
+    /* visibility: hidden; */
+    /* opacity: 0; */
+    /* transition: visibility 0.3s, opacity 0.5s linear; */
+}
+
+.headerText {
+
+}

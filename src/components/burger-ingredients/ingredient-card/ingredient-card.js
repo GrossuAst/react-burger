@@ -5,9 +5,12 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 
 import stylesIngredientCard from './ingredient-card.module.css';
 
-function IngredientCard({ name, image, price }) {
+function IngredientCard({ name, image, price, onCardClick }) {
     return (
-        <article className={ ` ${stylesIngredientCard.ingredientCard}` }>
+        <article 
+            className={ ` ${stylesIngredientCard.ingredientCard}` }
+            onClick={ onCardClick }
+        >
             <img alt="булка" src={ image }></img>
             <p className={ `mt-1 mb-1 ${stylesIngredientCard.price}` }>{ price } <CurrencyIcon /></p>
             <h3 className={ `text text_type_main-default ${stylesIngredientCard.name}` }>{ name }</h3>

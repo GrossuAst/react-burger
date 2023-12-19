@@ -17,8 +17,8 @@ function BurgerConstructor({ data }) {
   const bottomElement = React.useMemo(() => data.find((e) => e.name.includes("Флюоресцентная булка")), [data]);
 
   return (
-    <section className={`pl-4 ${stylesBurgerConstructor.section}`}>
-      <div className={stylesBurgerConstructor.container}>
+    <section className={ `pl-4 ${stylesBurgerConstructor.section}` }>
+      <div className={ stylesBurgerConstructor.container }>
         <div className="pr-5">
           <ConstructorElement
             type="top"
@@ -29,12 +29,12 @@ function BurgerConstructor({ data }) {
           />
         </div>
         <ul
-          className={`custom-scroll mt-4 mb-4 ${stylesBurgerConstructor.list}`}
+          className={ `custom-scroll mt-4 mb-4 ${stylesBurgerConstructor.list}` }
         >
           {middleElements.map((i) => (
             <li
               key={i._id}
-              className={`mr-2 ${stylesBurgerConstructor.listItem}`}
+              className={ `mr-2 ${stylesBurgerConstructor.listItem}` }
             >
               {i.type !== "bun" ? <DragIcon /> : <></>}
               <ConstructorElement
@@ -57,8 +57,8 @@ function BurgerConstructor({ data }) {
           />
         </div>
       </div>
-      <div className={`mt-10 ${stylesBurgerConstructor.confirmation}`}>
-        <div className={`mr-10 ${stylesBurgerConstructor.total}`}>
+      <div className={ `mt-10 ${stylesBurgerConstructor.confirmation}` }>
+        <div className={ `mr-10 ${stylesBurgerConstructor.total}` }>
           <p className="text mr-2">610</p>
           <img alt="валюта- алмаз" src={ diamond }></img>
         </div>
