@@ -1,0 +1,30 @@
+.container {
+    height: 812px;
+    width: 600px;
+    /* outline: 1px solid red; */
+    grid-area: ingredients;
+}
+
+.tabContainer {
+    display: flex;
+}
+
+.ingredientsContainer {
+    overflow-y: scroll;
+    max-height: 656px;
+}
+
+.ingredientName {
+    margin-top: 0;
+}
+
+.list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.listItem {
+    max-width: max-content;
+}
