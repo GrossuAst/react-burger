@@ -1,4 +1,3 @@
-import { escape } from "querystring";
 import React, { useState, useEffect } from "react";
 
 import { getData } from "../../utils/constants";
@@ -22,18 +21,9 @@ function App() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   if(isModalOpen) {
-  //     document.addEventListener('keypress', handleEscPress());
-  //   }
-  //   return () => {
-  //     document.removeEventListener('keypress', handleEscPress());
-  //   }
-  // });
-
-  // function handleEscPress(e) {
-
-  // };
+  useEffect(() => {
+    
+  })
 
   function hanldeCloseModal() {
     setIsModalOpen(false);
