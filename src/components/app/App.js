@@ -12,8 +12,6 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentElementInModal, setCurrentElementInModal] = useState(null);
 
-  console.log(currentElementInModal)
-
   useEffect(() => {
     getData()
       .then((res) => {
@@ -26,7 +24,7 @@ function App() {
 
   function hanldeCloseModal() {
     setIsModalOpen(false);
-    setCurrentElementInModal(null);
+    currentElementInModal && setCurrentElementInModal(null);
   };
 
   function handleOpenModal() {
@@ -49,7 +47,6 @@ function App() {
         hanldeCloseModal={ hanldeCloseModal }
 
         currentElementInModal={ isModalOpen && currentElementInModal }
-        
       />
     </>
   );

@@ -11,7 +11,10 @@ import diamond from "../../images/diamond36x36.svg";
 
 import stylesBurgerConstructor from "./burger-constructor.module.css";
 
-function BurgerConstructor({ data }) {
+function BurgerConstructor({
+  data,
+  handleOpenModal,
+}) {
   const topElement = React.useMemo(() => data.find((e) => e.name.includes("Краторная булка")), [data]);
   const middleElements = React.useMemo(() => data.filter((e) => e.type === "main" || e.type === "sauce"), [data]);
   const bottomElement = React.useMemo(() => data.find((e) => e.name.includes("Флюоресцентная булка")), [data]);
@@ -62,7 +65,7 @@ function BurgerConstructor({ data }) {
           <p className="text mr-2">610</p>
           <img alt="валюта- алмаз" src={ diamond }></img>
         </div>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large" onClick={ handleOpenModal }>
           Оформить заказ
         </Button>
       </div>

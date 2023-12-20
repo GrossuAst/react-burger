@@ -13,22 +13,27 @@ function IngredientDetails({
             <img src={ image } alt={ name } className={ stylesIngredientDetails.image } />
             <h2 className={ `mt-6 ${stylesIngredientDetails.title}` }>{ name }</h2>
             <ul className={ `mt-9 ${stylesIngredientDetails.calories}` }>
-                <li className={ ` ${stylesIngredientDetails.item}` }>
-                    <h3 className={ ` ${stylesIngredientDetails.itemTitle}` }>Калории,ккал</h3>
-                    <p className={ ` ${stylesIngredientDetails.number}` }>{ calories }</p>
+
+                <li className={ stylesIngredientDetails.item }>
+                    <h3 className={ stylesIngredientDetails.itemTitle }>Калории,ккал</h3>
+                    <p className={ stylesIngredientDetails.number }>{ calories }</p>
                 </li>
-                <li className={ ` ${stylesIngredientDetails.item}` }>
-                    <h3 className={ ` ${stylesIngredientDetails.itemTitle}` }>Белки, г</h3>
-                    <p className={ ` ${stylesIngredientDetails.number}` }>{ proteins }</p>
+
+                <li className={ stylesIngredientDetails.item }>
+                    <h3 className={ stylesIngredientDetails.itemTitle }>Белки, г</h3>
+                    <p className={ stylesIngredientDetails.number }>{ proteins }</p>
                 </li>
-                <li className={ ` ${stylesIngredientDetails.item}` }>
-                    <h3 className={ ` ${stylesIngredientDetails.itemTitle}` }>Жиры, г</h3>
-                    <p className={ ` ${stylesIngredientDetails.number}` }>{ fat }</p>
+
+                <li className={ stylesIngredientDetails.item }>
+                    <h3 className={ stylesIngredientDetails.itemTitle }>Жиры, г</h3>
+                    <p className={ stylesIngredientDetails.number }>{ fat }</p>
                 </li>
-                <li className={ ` ${stylesIngredientDetails.item}` }>
-                    <h3 className={ ` ${stylesIngredientDetails.itemTitle}` }>Углеводы, г</h3>
-                    <p className={ ` ${stylesIngredientDetails.number}` }>{ carbohydrates }</p>
+
+                <li className={ stylesIngredientDetails.item }>
+                    <h3 className={ stylesIngredientDetails.itemTitle }>Углеводы, г</h3>
+                    <p className={ stylesIngredientDetails.number }>{ carbohydrates }</p>
                 </li>
+                
             </ul>
         </article>
     );
