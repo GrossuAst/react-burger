@@ -8,6 +8,10 @@
     cursor: pointer;
 }
 
+.ingredientCard:hover {
+    /* opacity: 0.7; */
+}
+
 .number {
     height: 32px;
     width: 32px;

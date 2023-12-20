@@ -10,6 +10,9 @@ function App() {
 
   const [initialData, setInitialData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentElementInModal, setCurrentElementInModal] = useState(null);
+
+  console.log(currentElementInModal)
 
   useEffect(() => {
     getData()
@@ -21,19 +24,9 @@ function App() {
       });
   }, []);
 
-  useEffect(() => {
-    
-  })
-
   function hanldeCloseModal() {
     setIsModalOpen(false);
-  };
-
-  function handleOverlayClick(e) {
-    if(e.target.classList.contains('modal-overlay_container__6nar1')) {
-      setIsModalOpen(false);
-    }
-    return
+    setCurrentElementInModal(null);
   };
 
   function handleOpenModal() {
@@ -48,12 +41,15 @@ function App() {
         <Main
           data={ initialData }
           handleOpenModal={ handleOpenModal }
+          setCurrentElementInModal={ setCurrentElementInModal }
         /> }
 
       <ModalOverlay
         isOpen={ isModalOpen }
         hanldeCloseModal={ hanldeCloseModal }
-        handleOverlayClick={ handleOverlayClick }
+
+        currentElementInModal={ isModalOpen && currentElementInModal }
+        
       />
     </>
   );

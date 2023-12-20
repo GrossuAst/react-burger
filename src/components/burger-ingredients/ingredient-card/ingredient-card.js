@@ -5,11 +5,25 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 
 import stylesIngredientCard from './ingredient-card.module.css';
 
-function IngredientCard({ name, image, price, onCardClick }) {
+function IngredientCard({
+    cardData,
+    name,
+    image,
+    price,
+
+    handleOpenModal,
+    setCurrentElementInModal,
+}) {
+
+    function handleCardClick(data) {
+        handleOpenModal();
+        setCurrentElementInModal(data);
+    };
+
     return (
         <article 
             className={ ` ${stylesIngredientCard.ingredientCard}` }
-            onClick={ onCardClick }
+            onClick={ () => handleCardClick(cardData) }
         >
             <img alt="булка" src={ image }></img>
             <p className={ `mt-1 mb-1 ${stylesIngredientCard.price}` }>{ price } <CurrencyIcon /></p>

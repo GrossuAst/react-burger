@@ -12,47 +12,26 @@ import stylesBurgerIngredients from './burger-ingredients.module.css';
 function BurgerIngredients({
     data,
     handleOpenModal,
+    setCurrentElementInModal,
 }) {
     const [current, setCurrent] = React.useState('Булки');
-
-    // const [isModalOpen, setIsModalOpen] = useState(false);
 
     const buns = React.useMemo(() => data.filter((e) => e.type === 'bun'), [data]);
     const mains = React.useMemo(() => data.filter((e) => e.type === 'main'), [data]);
     const sauces = React.useMemo(() => data.filter((e) => e.type === 'sauce'), [data]);
 
-    // function hanldeCloseModal() {
-    //     setIsModalOpen(false);
-    // };
-
-    // function handleOpenModal() {
-    //     setIsModalOpen(true);
-    // };
-
     return (
         <>
-            {/* {
-                isModalOpen && (
-                    <ModalOverlay
-                        name='детали ингредиента' 
-                        isOpen={ isModalOpen }
-                        style={ isModalOpen ? { overflow: 'visible' } : { overflow: 'hidden' } }
-                        onClose={ hanldeCloseModal }
-                    >
-                    </ModalOverlay> 
-                )
-            } */}
-
             <section className={ stylesBurgerIngredients.container }>
                 
                 <div className={ stylesBurgerIngredients.tabContainer }>
-                    <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
+                    <Tab value="Булки" active={current === 'Булки'} onClick={ setCurrent }>
                         Булки
                     </Tab>
-                    <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
+                    <Tab value="Соусы" active={current === 'Соусы'} onClick={ setCurrent }>
                         Соусы
                     </Tab>
-                    <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
+                    <Tab value="Начинки" active={current === 'Начинки'} onClick={ setCurrent }>
                         Начинки
                     </Tab>
                 </div>
@@ -63,10 +42,13 @@ function BurgerIngredients({
                             buns.map((i) => (
                                 <li key={ i._id } className={ stylesBurgerIngredients.listItem }>
                                     <IngredientCard
+                                        cardData={ i }
                                         name={ i.name }
                                         image={ i.image }
                                         price={ i.price }
-                                        onCardClick={ handleOpenModal }
+
+                                        handleOpenModal={ handleOpenModal }
+                                        setCurrentElementInModal={ setCurrentElementInModal }
                                     />
                                 </li>    
                             ))
@@ -78,10 +60,13 @@ function BurgerIngredients({
                             sauces.map((i) => (
                                 <li key={ i._id } className={ stylesBurgerIngredients.listItem }>
                                     <IngredientCard 
+                                        cardData={ i }
                                         name={ i.name }
                                         image={ i.image }
                                         price={ i.price }
-                                        onCardClick={ handleOpenModal }
+
+                                        handleOpenModal={ handleOpenModal }
+                                        setCurrentElementInModal={ setCurrentElementInModal }
                                     />
                                 </li>    
                             ))
@@ -93,10 +78,13 @@ function BurgerIngredients({
                             mains.map((i) => (
                                 <li key={ i._id } className={ stylesBurgerIngredients.listItem }>
                                     <IngredientCard 
+                                        cardData={ i }
                                         name={ i.name }
                                         image={ i.image }
                                         price={ i.price }
-                                        onCardClick={ handleOpenModal }
+                                        
+                                        handleOpenModal={ handleOpenModal }
+                                        setCurrentElementInModal={ setCurrentElementInModal }
                                     />
                                 </li>    
                             ))

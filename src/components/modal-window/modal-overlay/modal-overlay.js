@@ -9,8 +9,32 @@ const modalRoot = document.querySelector('#modal-root');
 
 class ModalOverlay extends React.Component {
 
+    handleEscPress = e => {
+        if(e.key === 'Escape') {
+            this.props.hanldeCloseModal();
+        }   
+        return
+    };
+
+    handleOverlayClick = (e) => {
+        if(e.target.classList.contains('modal-overlay_container__6nar1')) {
+            this.props.hanldeCloseModal();
+        }
+        return
+    };
+
+    componentDidMount() {
+        document.addEventListener('keydown', this.handleEscPress);
+        document.addEventListener('click', this.handleOverlayClick);
+    };
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.handleEscPress);
+        document.removeEventListener('click', this.handleOverlayClick);
+    };
+
     render() {
-        const { children, headerText, hanldeCloseModal, handleOverlayClick, name, isOpen, style } = this.props;
+        const { hanldeCloseModal, handleOverlayClick, isOpen, currentElementInModal } = this.props;
 
         return ReactDOM.createPortal(
             (
@@ -20,9 +44,9 @@ class ModalOverlay extends React.Component {
                     onClick={ handleOverlayClick }
                 >
                     <Modal
-                        content={ children }
-                        name={ name }
                         hanldeCloseModal={ hanldeCloseModal }
+
+                        currentElementInModal={ currentElementInModal }
                     >
                     </Modal>                    
                 </div>

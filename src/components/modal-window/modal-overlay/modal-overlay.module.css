@@ -8,6 +8,7 @@
     position: fixed;
     top: 0px;
     left: 0px;
+    cursor: pointer;
     /* overflow: visible; */
     /* visibility: hidden; */
     /* opacity: 0; */

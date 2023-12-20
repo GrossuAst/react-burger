@@ -9,6 +9,7 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 function Main({
     data,
     handleOpenModal,
+    setCurrentElementInModal,
 }) {
     return (
         <main className={ `pt-10 pb-10 ${stylesMain.main}` }>
@@ -16,6 +17,7 @@ function Main({
             <BurgerIngredients 
                 data={ data }
                 handleOpenModal={ handleOpenModal }
+                setCurrentElementInModal={ setCurrentElementInModal }
             />
             <BurgerConstructor 
                 data={ data }
