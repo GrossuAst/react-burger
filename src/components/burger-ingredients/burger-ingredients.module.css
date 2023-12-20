@@ -1,5 +1,5 @@
 .container {
-    height: 812px;
+    height: 565px;
     width: 600px;
     /* outline: 1px solid red; */
     grid-area: ingredients;
@@ -11,7 +11,7 @@
 
 .ingredientsContainer {
     overflow-y: scroll;
-    max-height: 656px;
+    max-height: 560px;
 }
 
 .ingredientName {
