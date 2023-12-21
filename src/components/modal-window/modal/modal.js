@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import ReactDOM from "react-dom";
+import PropTypes from 'prop-types';
 
 import stylesModal from './modal.module.css';
 
@@ -24,7 +25,7 @@ function Modal({
     useEffect(() => {
         document.addEventListener('keydown', handleEscPress);
         return () => {
-            document.removeEventListener('keydown', handleEscPress);    
+            document.removeEventListener('keydown', handleEscPress);
         } 
     }, []);
 
@@ -38,7 +39,7 @@ function Modal({
                     <div className={ `pt-10 ${stylesModal.container}` }>
                         <div className={ `pr-10 ${stylesModal.header}` }>
                             { currentElementInModal && (
-                                <p className={ `pl-10 pt-1 ${stylesModal.headerText}` }>Детали ингредиента</p> 
+                                <p className={ `pl-10 pt-1 ${stylesModal.headerText}` }>Детали ингредиента</p>
                             ) }
                             <button
                                 className={ `${stylesModal.closeButton}` }
@@ -54,6 +55,30 @@ function Modal({
             </>
         ), modalRoot
     );
+};
+
+const objectStructure = PropTypes.shape({
+    calories: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    image_large: PropTypes.string.isRequired,
+    image_mobile: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    proteins: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    __v: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired
+});
+
+Modal.propTypes = {
+    isModalOpen: PropTypes.bool.isRequired,
+    currentElementInModal: PropTypes.oneOfType([
+        PropTypes.oneOf([null]),
+        objectStructure
+    ]),
+    handleCloseModal: PropTypes.func.isRequired
 };
 
 export default Modal;
