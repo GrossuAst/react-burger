@@ -1,5 +1,3 @@
-import React from "react";
-
 import stylesIngredientDetails from './ingredient-details.module.css';
 
 function IngredientDetails({

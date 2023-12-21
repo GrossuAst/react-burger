@@ -1,6 +1,7 @@
 .container {
     cursor: auto;
-    position: relative;
+    position: fixed;
+    z-index: 3;
     width: 720px;
     min-height: 500px;
     background-color: #1C1C21;

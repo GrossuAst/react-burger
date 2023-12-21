@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { getData } from "../../utils/constants";
 
 import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
-import ModalOverlay from "../modal-window/modal-overlay/modal-overlay";
+import Modal from "../modal-window/modal/modal";
+import IngredientDetails from "../modal-window/ingredient-details/ingredient-details";
+import OrderDetails from "../modal-window/order-details/order-details";
 
 function App() {
 
@@ -22,7 +24,7 @@ function App() {
       });
   }, []);
 
-  function hanldeCloseModal() {
+  function handleCloseModal() {
     setIsModalOpen(false);
     currentElementInModal && setCurrentElementInModal(null);
   };
@@ -40,14 +42,19 @@ function App() {
           data={ initialData }
           handleOpenModal={ handleOpenModal }
           setCurrentElementInModal={ setCurrentElementInModal }
-        /> }
+        /> 
+      }
 
-      <ModalOverlay
-        isOpen={ isModalOpen }
-        hanldeCloseModal={ hanldeCloseModal }
+      <Modal
+        isModalOpen={ isModalOpen }
+        handleCloseModal={ handleCloseModal }
+        currentElementInModal={ currentElementInModal }
+      >
+        {
+          currentElementInModal ? <IngredientDetails currentElementInModal={ currentElementInModal } /> : <OrderDetails />
+        }
+      </Modal>
 
-        currentElementInModal={ isModalOpen && currentElementInModal }
-      />
     </>
   );
 };

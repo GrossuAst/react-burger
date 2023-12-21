@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import { useState, useMemo } from "react";
 import PropTypes from 'prop-types';
-
-import ModalOverlay from "../modal-window/modal-overlay/modal-overlay";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -12,13 +10,13 @@ import stylesBurgerIngredients from './burger-ingredients.module.css';
 function BurgerIngredients({
     data,
     handleOpenModal,
-    setCurrentElementInModal,
+    setCurrentElementInModal
 }) {
-    const [current, setCurrent] = React.useState('Булки');
+    const [current, setCurrent] = useState('Булки');
 
-    const buns = React.useMemo(() => data.filter((e) => e.type === 'bun'), [data]);
-    const mains = React.useMemo(() => data.filter((e) => e.type === 'main'), [data]);
-    const sauces = React.useMemo(() => data.filter((e) => e.type === 'sauce'), [data]);
+    const buns = useMemo(() => data.filter((e) => e.type === 'bun'), [data]);
+    const mains = useMemo(() => data.filter((e) => e.type === 'main'), [data]);
+    const sauces = useMemo(() => data.filter((e) => e.type === 'sauce'), [data]);
 
     return (
         <>

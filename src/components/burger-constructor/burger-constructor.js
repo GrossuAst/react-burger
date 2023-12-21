@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -15,9 +15,9 @@ function BurgerConstructor({
   data,
   handleOpenModal,
 }) {
-  const topElement = React.useMemo(() => data.find((e) => e.name.includes("Краторная булка")), [data]);
-  const middleElements = React.useMemo(() => data.filter((e) => e.type === "main" || e.type === "sauce"), [data]);
-  const bottomElement = React.useMemo(() => data.find((e) => e.name.includes("Флюоресцентная булка")), [data]);
+  const topElement = useMemo(() => data.find((e) => e.name.includes("Краторная булка")), [data]);
+  const middleElements = useMemo(() => data.filter((e) => e.type === "main" || e.type === "sauce"), [data]);
+  const bottomElement = useMemo(() => data.find((e) => e.name.includes("Флюоресцентная булка")), [data]);
 
   return (
     <section className={ `pl-4 ${stylesBurgerConstructor.section}` }>
