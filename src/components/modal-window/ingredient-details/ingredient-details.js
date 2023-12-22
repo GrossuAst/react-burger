@@ -1,4 +1,7 @@
+import PropTypes from 'prop-types';
+
 import stylesIngredientDetails from './ingredient-details.module.css';
+import { ingredientStructure } from '../../../utils/prop-types';
 
 function IngredientDetails({
     currentElementInModal
@@ -35,6 +38,10 @@ function IngredientDetails({
             </ul>
         </article>
     );
+};
+
+IngredientDetails.propTypes = {
+    currentElementInModal: ingredientStructure.isRequired
 };
 
 export default IngredientDetails;

@@ -6,6 +6,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "./ingredient-card/ingredient-card";
 
 import stylesBurgerIngredients from './burger-ingredients.module.css';
+import { ingredientStructure } from "../../utils/prop-types";
 
 function BurgerIngredients({
     data,
@@ -95,25 +96,8 @@ function BurgerIngredients({
     );
 };
 
-const dataStructure = PropTypes.arrayOf(
-    PropTypes.shape({
-        calories: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        image_large: PropTypes.string.isRequired,
-        image_mobile: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        proteins: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        __v: PropTypes.number.isRequired,
-        _id: PropTypes.string.isRequired
-    })
-).isRequired;
-
 BurgerIngredients.propTypes = {
-    data: dataStructure,
+    data: PropTypes.arrayOf(ingredientStructure).isRequired,
     handleOpenModal: PropTypes.func.isRequired,
     setCurrentElementInModal: PropTypes.func.isRequired,
 };

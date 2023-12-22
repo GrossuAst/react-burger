@@ -5,6 +5,8 @@ import stylesModalOverlay from './modal-overlay.module.css';
 
 function ModalOverlay({ children, isModalOpen, handleCloseModal }) {
 
+    console.log(children)
+
     function handleOverlayClick(e) {
         const overlayClass = stylesModalOverlay.overlay;
         if (e.target.classList.contains(overlayClass)) {
@@ -23,6 +25,7 @@ function ModalOverlay({ children, isModalOpen, handleCloseModal }) {
 };
 
 ModalOverlay.propTypes = {
+    children: PropTypes.node.isRequired,
     isModalOpen: PropTypes.bool.isRequired,
     handleCloseModal: PropTypes.func.isRequired
 };
