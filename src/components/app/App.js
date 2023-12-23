@@ -1,45 +1,62 @@
-import React from 'react';
+import { useState, useEffect } from "react";
 
-import { data } from '../../utils/constants';
+import { getData } from "../../utils/constants";
 
-import AppHeader from '../app-header/app-header';
-import Main from '../main/main';
-
-import { apiConfig } from '../../utils/constants';
+import AppHeader from "../app-header/app-header";
+import Main from "../main/main";
+import Modal from "../modal-window/modal/modal";
+import IngredientDetails from "../modal-window/ingredient-details/ingredient-details";
+import OrderDetails from "../modal-window/order-details/order-details";
 
 function App() {
 
-  // function getData() {
-  //   return fetch(apiConfig.url, {
-  //     method: 'GET',
-  //     headers: apiConfig.headers,
-  //   })
-  //     .then((res) => {
-  //       if(res.ok) {
-  //         return res.json();
-  //       }
-  //       return Promise.reject(`Ошибка ${res.status}`);
-  //     })
-  // }
+  const [initialData, setInitialData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentElementInModal, setCurrentElementInModal] = useState(null);
 
-  // React.useEffect(() => {
-  //   getData()
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // }, []);
+  useEffect(() => {
+    getData()
+      .then((res) => {
+        setInitialData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  function handleCloseModal() {
+    setIsModalOpen(false);
+    currentElementInModal && setCurrentElementInModal(null);
+  };
+
+  function handleOpenModal() {
+    setIsModalOpen(true);
+  };
 
   return (
     <>
       <AppHeader />
-      <Main 
-        data={ data }
-      />
+
+      { initialData && 
+        <Main
+          data={ initialData }
+          handleOpenModal={ handleOpenModal }
+          setCurrentElementInModal={ setCurrentElementInModal }
+        /> 
+      }
+
+      <Modal
+        isModalOpen={ isModalOpen }
+        handleCloseModal={ handleCloseModal }
+        currentElementInModal={ currentElementInModal }
+      >
+        {
+          currentElementInModal ? <IngredientDetails currentElementInModal={ currentElementInModal } /> : <OrderDetails />
+        }
+      </Modal>
+
     </>
   );
-}
+};
 
 export default App;

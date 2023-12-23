@@ -4,8 +4,8 @@
 }
 
 .container {
-    height: 656px;
-    width: 593px;
+    height: 565px;
+    width: 600px;
     grid-area: constructor;
     display: flex;
     flex-direction: column;

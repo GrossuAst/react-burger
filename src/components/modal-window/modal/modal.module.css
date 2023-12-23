@@ -1,0 +1,42 @@
+.container {
+    cursor: auto;
+    position: fixed;
+    z-index: 3;
+    width: 720px;
+    min-height: 500px;
+    background-color: #1C1C21;
+    border-radius: 40px;
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 4px 8px 0px rgba(0, 0, 0, 0.04), 0px 16px 24px 0px rgba(0, 0, 0, 0.04), 0px 24px 32px 0px rgba(0, 0, 0, 0.04);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.headerText {
+    margin: 0;
+    line-height: 52px;
+    font-family: 'JetBrains Mono';
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.closeButton {
+    height: 24px;
+    width: 24px;
+    background: url('../../../images/closeIcon.svg') no-repeat center;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    top: 58px;
+    right: 40px;
+}
+
+.closeButton:hover {
+    opacity: 0.7;
+}

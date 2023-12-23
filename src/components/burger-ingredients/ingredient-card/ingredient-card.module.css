@@ -5,6 +5,7 @@
     width: 272px;
     height: 208px;
     position: relative;
+    cursor: pointer;
 }
 
 .number {
@@ -24,11 +25,6 @@
 
 .number_visible {
     display: flex;
-}
-
-.name {
-    /* margin-top: 0; */
-    /* margin-bottom: 0; */
 }
 
 .price {
