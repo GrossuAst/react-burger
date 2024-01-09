@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { getData } from "../../utils/constants";
+import { GET_INITIAL_DATA } from "../../services/actions/burger-ingredients";
 
+import Preloader from "../preloader/Preloader";
 import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
 import Modal from "../modal-window/modal/modal";
@@ -9,19 +12,29 @@ import IngredientDetails from "../modal-window/ingredient-details/ingredient-det
 import OrderDetails from "../modal-window/order-details/order-details";
 
 function App() {
+  const dispatch = useDispatch();
 
-  const [initialData, setInitialData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentElementInModal, setCurrentElementInModal] = useState(null);
+
+  const { ingredients, ingredientsInConstructor } = useSelector(store => ({
+    ingredients: store.ingredients,
+    // ingredientsInConstructor: store.ingredientsInConstructor,
+  }));
+
+  console.log(ingredients.ingredients)
 
   useEffect(() => {
     getData()
       .then((res) => {
-        setInitialData(res.data);
+        dispatch({
+          type: GET_INITIAL_DATA,
+          payload: res.data
+        });
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
   }, []);
 
   function handleCloseModal() {
@@ -37,12 +50,15 @@ function App() {
     <>
       <AppHeader />
 
-      { initialData && 
-        <Main
-          data={ initialData }
-          handleOpenModal={ handleOpenModal }
-          setCurrentElementInModal={ setCurrentElementInModal }
-        /> 
+      { 
+        ingredients.ingredients.length > 0 ? (
+          <Main
+            handleOpenModal={ handleOpenModal }
+            setCurrentElementInModal={ setCurrentElementInModal }
+          />  
+        ) : (
+          <Preloader/>
+        )
       }
 
       <Modal

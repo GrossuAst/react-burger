@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import PropTypes from 'prop-types';
+import { useSelector } from "react-redux";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -9,16 +10,19 @@ import stylesBurgerIngredients from './burger-ingredients.module.css';
 import { ingredientStructure } from "../../utils/prop-types";
 
 function BurgerIngredients({
-    data,
     handleOpenModal,
     setCurrentElementInModal
 }) {
 
     const [current, setCurrent] = useState('Булки');
 
-    const buns = useMemo(() => data.filter((e) => e.type === 'bun'), [data]);
-    const mains = useMemo(() => data.filter((e) => e.type === 'main'), [data]);
-    const sauces = useMemo(() => data.filter((e) => e.type === 'sauce'), [data]);
+    const { ingredients } = useSelector(store => ({
+        ingredients: store.ingredients,
+    }))
+
+    const buns = useMemo(() => ingredients.ingredients.filter((e) => e.type === 'bun'), [ingredients.ingredients]);
+    const mains = useMemo(() => ingredients.ingredients.filter((e) => e.type === 'main'), [ingredients.ingredients]);
+    const sauces = useMemo(() => ingredients.ingredients.filter((e) => e.type === 'sauce'), [ingredients.ingredients]);
 
     return (
         <>

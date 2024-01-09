@@ -5,8 +5,6 @@ import stylesModalOverlay from './modal-overlay.module.css';
 
 function ModalOverlay({ children, isModalOpen, handleCloseModal }) {
 
-    console.log(children)
-
     function handleOverlayClick(e) {
         const overlayClass = stylesModalOverlay.overlay;
         if (e.target.classList.contains(overlayClass)) {

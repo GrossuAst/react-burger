@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 import {
   ConstructorElement,
@@ -13,12 +14,15 @@ import stylesBurgerConstructor from "./burger-constructor.module.css";
 import { ingredientStructure } from "../../utils/prop-types";
 
 function BurgerConstructor({
-  data,
   handleOpenModal,
 }) {
-  const topElement = useMemo(() => data.find((e) => e.name.includes("Краторная булка")), [data]);
-  const middleElements = useMemo(() => data.filter((e) => e.type === "main" || e.type === "sauce"), [data]);
-  const bottomElement = useMemo(() => data.find((e) => e.name.includes("Флюоресцентная булка")), [data]);
+  const { ingredients } = useSelector(store => ({
+    ingredients: store.ingredients,
+  }))
+
+  const topElement = useMemo(() => ingredients.ingredients.find((e) => e.name.includes("Краторная булка")), [ingredients.ingredients]);
+  const middleElements = useMemo(() => ingredients.ingredients.filter((e) => e.type === "main" || e.type === "sauce"), [ingredients.ingredients]);
+  const bottomElement = useMemo(() => ingredients.ingredients.find((e) => e.name.includes("Флюоресцентная булка")), [ingredients.ingredients]);
 
   return (
     <section className={ `pl-4 ${stylesBurgerConstructor.section}` }>
