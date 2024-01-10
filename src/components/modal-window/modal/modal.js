@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import ReactDOM from "react-dom";
 import PropTypes from 'prop-types';
 
@@ -12,9 +13,11 @@ const modalRoot = document.querySelector('#modal-root');
 function Modal({
     children,
     isModalOpen,
-    currentElementInModal,
     handleCloseModal,
 }) {
+    const { currentIngredient } = useSelector(strore => ({
+        currentIngredient: strore.currentIngredient,
+    }));
 
     function handleEscPress(e) {
         if(e.key === 'Escape') {
@@ -39,7 +42,7 @@ function Modal({
                 >
                     <div className={ `pt-10 ${stylesModal.container}` }>
                         <div className={ `pr-10 ${stylesModal.header}` }>
-                            { currentElementInModal && (
+                            { currentIngredient.currentIngredient && (
                                 <p className={ `pl-10 pt-1 ${stylesModal.headerText}` }>Детали ингредиента</p>
                             ) }
                             <button

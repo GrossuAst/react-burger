@@ -1,4 +1,4 @@
-import { GET_DATA, GET_INITIAL_DATA } from "../actions/burger-ingredients";
+import { GET_INITIAL_DATA } from "../actions/burger-ingredients";
 
 const initialState = {
     ingredients: [],

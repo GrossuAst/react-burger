@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { getData } from "../../utils/constants";
 import { GET_INITIAL_DATA } from "../../services/actions/burger-ingredients";
+import { DEACTIVE_INGREDIENT } from "../../services/actions/current-ingredient";
 
 import Preloader from "../preloader/Preloader";
 import AppHeader from "../app-header/app-header";
@@ -15,14 +16,11 @@ function App() {
   const dispatch = useDispatch();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentElementInModal, setCurrentElementInModal] = useState(null);
 
-  const { ingredients, ingredientsInConstructor } = useSelector(store => ({
+  const { ingredients, currentIngredient } = useSelector(store => ({
     ingredients: store.ingredients,
-    // ingredientsInConstructor: store.ingredientsInConstructor,
+    currentIngredient: store.currentIngredient,
   }));
-
-  console.log(ingredients.ingredients)
 
   useEffect(() => {
     getData()
@@ -39,7 +37,9 @@ function App() {
 
   function handleCloseModal() {
     setIsModalOpen(false);
-    currentElementInModal && setCurrentElementInModal(null);
+    dispatch({
+      type: DEACTIVE_INGREDIENT
+    });
   };
 
   function handleOpenModal() {
@@ -54,7 +54,6 @@ function App() {
         ingredients.ingredients.length > 0 ? (
           <Main
             handleOpenModal={ handleOpenModal }
-            setCurrentElementInModal={ setCurrentElementInModal }
           />  
         ) : (
           <Preloader/>
@@ -64,10 +63,9 @@ function App() {
       <Modal
         isModalOpen={ isModalOpen }
         handleCloseModal={ handleCloseModal }
-        currentElementInModal={ currentElementInModal }
       >
         {
-          currentElementInModal ? <IngredientDetails currentElementInModal={ currentElementInModal } /> : <OrderDetails />
+          currentIngredient.currentIngredient ? <IngredientDetails /> : <OrderDetails />
         }
       </Modal>
 

@@ -1,4 +1,7 @@
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+
+import { ACTIVE_INGREDIENT } from '../../../services/actions/current-ingredient';
 
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -10,14 +13,16 @@ function IngredientCard({
     name,
     image,
     price,
-
     handleOpenModal,
-    setCurrentElementInModal,
 }) {
+    const dispatch = useDispatch();
 
     function handleCardClick(data) {
         handleOpenModal();
-        setCurrentElementInModal(data);
+        dispatch({
+            type: ACTIVE_INGREDIENT,
+            payload: { data: data }
+        });
     };
 
     return (

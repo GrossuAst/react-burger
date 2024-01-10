@@ -1,15 +1,10 @@
 import { combineReducers } from 'redux';
 import { ingredientsReducer } from './burger-ingredients';
 import { constructorReducer } from './burger-constructor';
-
-// export const initialState = {
-    // allIngredients: [],
-    // ingredientsInConstructor: [],
-    // currentIngredientInModal: null,
-    // createdOrder: null,
-// };
+import { currenIngredientReducer } from './current-ingredient';
 
 export const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
     ingredientsInConstructor: constructorReducer,
+    currentIngredient: currenIngredientReducer,
 });

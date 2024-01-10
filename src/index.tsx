@@ -10,10 +10,10 @@ import './index.css';
 import App from './components/app/App';
 import reportWebVitals from './reportWebVitals';
 
-import { configureStore } from './services/store.js';
+import { store } from './services/store.js';
 import { rootReducer } from './services/reducers';
 
-const store = configureStore();
+// const store = configureStore();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
