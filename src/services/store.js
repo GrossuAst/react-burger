@@ -1,6 +1,4 @@
-// import { composeWithDevTools } from 'redux-devtools-extension';
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import { createStore } from "redux"
+import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './reducers'
 
 export const store = configureStore({

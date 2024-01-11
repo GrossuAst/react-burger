@@ -1,38 +1,31 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { getData } from "../../utils/constants";
-import { GET_INITIAL_DATA } from "../../services/actions/burger-ingredients";
+import { getInitialData } from "../../services/actions/burger-ingredients";
 import { DEACTIVE_INGREDIENT } from "../../services/actions/current-ingredient";
 
-import Preloader from "../preloader/Preloader";
+import Preloader from "../ui/preloader/Preloader";
 import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
 import Modal from "../modal-window/modal/modal";
 import IngredientDetails from "../modal-window/ingredient-details/ingredient-details";
 import OrderDetails from "../modal-window/order-details/order-details";
+import ErrorMessage from "../ui/error-message/error-message";
 
 function App() {
   const dispatch = useDispatch();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { ingredients, currentIngredient } = useSelector(store => ({
+  const { ingredients, currentIngredient, feedRequest, feedFailed } = useSelector(store => ({
     ingredients: store.ingredients,
     currentIngredient: store.currentIngredient,
+    feedRequest: store.ingredients.feedRequest,
+    feedFailed: store.ingredients.feedFailed
   }));
 
   useEffect(() => {
-    getData()
-      .then((res) => {
-        dispatch({
-          type: GET_INITIAL_DATA,
-          payload: res.data
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    dispatch(getInitialData());
   }, []);
 
   function handleCloseModal() {
@@ -51,13 +44,11 @@ function App() {
       <AppHeader />
 
       { 
-        ingredients.ingredients.length > 0 ? (
-          <Main
-            handleOpenModal={ handleOpenModal }
-          />  
-        ) : (
-          <Preloader/>
-        )
+        feedRequest ? <Preloader /> : feedFailed ? <ErrorMessage /> :
+        ingredients.ingredients.length > 0 &&
+        <Main
+          handleOpenModal={ handleOpenModal }
+        />
       }
 
       <Modal
