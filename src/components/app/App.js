@@ -24,6 +24,8 @@ function App() {
     feedFailed: store.ingredients.feedFailed
   }));
 
+  console.log(ingredients)
+
   useEffect(() => {
     dispatch(getInitialData());
   }, []);

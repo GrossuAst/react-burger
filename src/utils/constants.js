@@ -16,4 +16,4 @@ export function getData() {
      }
      return Promise.reject(`Ошибка ${res.status}`);
    });
- };
+};

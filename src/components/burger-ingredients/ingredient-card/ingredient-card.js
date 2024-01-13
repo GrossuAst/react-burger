@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { useDrag } from 'react-dnd';
 
 import { ACTIVE_INGREDIENT } from '../../../services/actions/current-ingredient';
 
@@ -25,16 +26,36 @@ function IngredientCard({
         });
     };
 
+    const [{ isBunDrag }, bunRef] = useDrag({
+        type: 'bun',
+        item: cardData,
+        collect: monitor => ({
+            isBunDrag: monitor.isDragging()
+        })
+    });
+
+    const [{ isMidDrag }, midRef] = useDrag({
+        type: 'mid',
+        item: cardData,
+        collect: monitor => ({
+            isMidDrag: monitor.isDragging()
+        })
+    });
+
     return (
-        <article 
-            className={ ` ${stylesIngredientCard.ingredientCard}` }
-            onClick={ () => handleCardClick(cardData) }
-        >
-            <img alt="булка" src={ image }></img>
-            <p className={ `mt-1 mb-1 ${stylesIngredientCard.price}` }>{ price } <CurrencyIcon /></p>
-            <h3 className={ `text text_type_main-default ${stylesIngredientCard.name}` }>{ name }</h3>
-            <div className={ `${stylesIngredientCard.number} ${name.includes('Краторная булка') && `${stylesIngredientCard.number_visible}`}` }>1</div>
-        </article>
+        !isBunDrag && !isMidDrag && (
+            <article 
+                className={ ` ${stylesIngredientCard.ingredientCard}` }
+                onClick={ () => handleCardClick(cardData) }
+                ref={ cardData.type === 'bun' ? bunRef : midRef }
+            >
+                <img alt="булка" src={ image }></img>
+                <p className={ `mt-1 mb-1 ${stylesIngredientCard.price}` }>{ price } <CurrencyIcon /></p>
+                <h3 className={ `text text_type_main-default ${stylesIngredientCard.name}` }>{ name }</h3>
+                <div className={ `${stylesIngredientCard.number} ${name.includes('Краторная булка') && `${stylesIngredientCard.number_visible}`}` }>1</div>
+            </article>    
+        )
+
     )
 };
 

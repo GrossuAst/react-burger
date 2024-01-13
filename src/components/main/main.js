@@ -1,4 +1,8 @@
 import PropTypes from 'prop-types';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useDispatch } from 'react-redux';
+import { ADD_INGREDIENT } from '../../services/actions/burger-constructor';
 
 import stylesMain from './main.module.css';
 import { ingredientStructure } from '../../utils/prop-types';
@@ -7,23 +11,32 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 function Main({
-    // data,
     handleOpenModal,
     setCurrentElementInModal,
 }) {
+    const dispatch = useDispatch();
+
+    function onDropHandler(item) {
+        dispatch({
+            type: ADD_INGREDIENT,
+            payload: { data: item }
+        })
+    }
+
     return (
-        <main className={ `pt-10 pb-10 ${stylesMain.main}` }>
-            <h1 className={`mb-5 ${stylesMain.pageTitle}`}>Соберите бургер</h1>
-            <BurgerIngredients
-                // data={ data }
-                handleOpenModal={ handleOpenModal }
-                setCurrentElementInModal={ setCurrentElementInModal }
-            />
-            <BurgerConstructor 
-                // data={ data }
-                handleOpenModal={ handleOpenModal }
-            />
-        </main>
+        <DndProvider backend={ HTML5Backend  }>
+            <main className={ `pt-10 pb-10 ${stylesMain.main}` }>
+                <h1 className={`mb-5 ${stylesMain.pageTitle}`}>Соберите бургер</h1>
+                <BurgerIngredients
+                    handleOpenModal={ handleOpenModal }
+                    setCurrentElementInModal={ setCurrentElementInModal }
+                />
+                <BurgerConstructor 
+                    handleOpenModal={ handleOpenModal }
+                    onDropHandler={ onDropHandler }
+                />
+            </main>
+        </DndProvider>
     )
 };
 
