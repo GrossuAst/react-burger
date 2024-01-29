@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch } from 'react-redux';
-import { ADD_INGREDIENT } from '../../services/actions/burger-constructor';
+import { addIngredientInConstructor } from '../../services/actions/burger-constructor';
 
 import stylesMain from './main.module.css';
 import { ingredientStructure } from '../../utils/prop-types';
@@ -17,11 +17,8 @@ function Main({
     const dispatch = useDispatch();
 
     function onDropHandler(item) {
-        dispatch({
-            type: ADD_INGREDIENT,
-            payload: { data: item }
-        })
-    }
+        dispatch(addIngredientInConstructor(item));
+    };
 
     return (
         <DndProvider backend={ HTML5Backend  }>

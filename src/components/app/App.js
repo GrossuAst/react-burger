@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getInitialData } from "../../services/actions/burger-ingredients";
-import { DEACTIVE_INGREDIENT } from "../../services/actions/current-ingredient";
+import { clearModalData } from "../../services/actions/current-ingredient";
 
 import Preloader from "../ui/preloader/Preloader";
 import AppHeader from "../app-header/app-header";
@@ -24,17 +24,13 @@ function App() {
     feedFailed: store.ingredients.feedFailed
   }));
 
-  console.log(ingredients)
-
   useEffect(() => {
     dispatch(getInitialData());
   }, []);
 
   function handleCloseModal() {
     setIsModalOpen(false);
-    dispatch({
-      type: DEACTIVE_INGREDIENT
-    });
+    dispatch(clearModalData());
   };
 
   function handleOpenModal() {

@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 
 import { ConstructorElement, DragIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientContainer from "./ingredient-container/ingredient-container";
 
 import diamond from "../../images/diamond36x36.svg";
 
@@ -16,7 +15,7 @@ function BurgerConstructor({
   onDropHandler,
 }) {
   const { ingredientsInConstructor } = useSelector(store => ({
-    ingredientsInConstructor: store.ingredientsInConstructor,
+    ingredientsInConstructor: store.ingredientsInConstructor
   }))
 
   const topElement = ingredientsInConstructor.bun;
@@ -85,7 +84,7 @@ function BurgerConstructor({
             middleElements.length > 0 ?
             middleElements.map((item) => (
               <li               
-                key={item._id}
+                key={item.key}
                 className={ `mr-2 ${stylesBurgerConstructor.listItem}` }
               >
                 <DragIcon />

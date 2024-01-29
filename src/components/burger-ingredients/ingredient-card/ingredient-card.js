@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 
-import { ACTIVE_INGREDIENT } from '../../../services/actions/current-ingredient';
+import { showIngredientDetails } from '../../../services/actions/current-ingredient';
 
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -18,12 +18,15 @@ function IngredientCard({
 }) {
     const dispatch = useDispatch();
 
+    const { ingredientsInConstructor } =  useSelector(store => ({
+        ingredientsInConstructor: store.ingredientsInConstructor
+    }));
+
+    const isBunChecked = ingredientsInConstructor.bun && ingredientsInConstructor.bun._id === cardData._id;
+
     function handleCardClick(data) {
         handleOpenModal();
-        dispatch({
-            type: ACTIVE_INGREDIENT,
-            payload: { data: data }
-        });
+        dispatch(showIngredientDetails(data));
     };
 
     const [{ isBunDrag }, bunRef] = useDrag({
@@ -44,7 +47,7 @@ function IngredientCard({
 
     return (
         !isBunDrag && !isMidDrag && (
-            <article 
+            <article
                 className={ ` ${stylesIngredientCard.ingredientCard}` }
                 onClick={ () => handleCardClick(cardData) }
                 ref={ cardData.type === 'bun' ? bunRef : midRef }
@@ -52,8 +55,8 @@ function IngredientCard({
                 <img alt="булка" src={ image }></img>
                 <p className={ `mt-1 mb-1 ${stylesIngredientCard.price}` }>{ price } <CurrencyIcon /></p>
                 <h3 className={ `text text_type_main-default ${stylesIngredientCard.name}` }>{ name }</h3>
-                <div className={ `${stylesIngredientCard.number} ${name.includes('Краторная булка') && `${stylesIngredientCard.number_visible}`}` }>1</div>
-            </article>    
+                <div className={ `${stylesIngredientCard.number} ${isBunChecked && `${stylesIngredientCard.number_visible}`}` }>2</div>
+            </article>
         )
 
     )
