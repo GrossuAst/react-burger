@@ -1,7 +1,8 @@
-import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
+
+import { sendOrder } from "../../utils/constants";
 
 import { ConstructorElement, DragIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -20,7 +21,12 @@ function BurgerConstructor({
 
   const topElement = ingredientsInConstructor.bun;
   const middleElements = ingredientsInConstructor.middleIngredients;
-  const bottomElement = ingredientsInConstructor.bun;
+  const bottomElement = topElement;
+
+  const bunsId = topElement && topElement._id;
+  const middleElementsId = middleElements.map((i) => i._id);
+
+  const allIngredients = [bunsId, ...middleElementsId, bunsId];
 
   const [{ canDropTop }, dropRefTop] = useDrop({
     accept: 'bun',
@@ -51,6 +57,18 @@ function BurgerConstructor({
       canDropBottom: monitor.canDrop(),
     })
   });
+
+  function handleOrderButtonClick() {
+    if(!allIngredients.includes(null)) {
+      sendOrder(allIngredients)
+        .then((res) => {
+          console.log(res);
+        })
+      handleOpenModal();  
+    } else {
+      // обработчик ошибки
+    }
+  }
 
   return (
     <section className={ `pl-4 ${stylesBurgerConstructor.section}` }>
@@ -138,7 +156,7 @@ function BurgerConstructor({
           <p className="text mr-2">610</p>
           <img alt="валюта- алмаз" src={ diamond }></img>
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={ handleOpenModal }>
+        <Button htmlType="button" type="primary" size="large" onClick={ handleOrderButtonClick }>
           Оформить заказ
         </Button>
       </div>
