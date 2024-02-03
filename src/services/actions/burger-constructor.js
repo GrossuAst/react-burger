@@ -8,4 +8,11 @@ export function addIngredientInConstructor(item) {
         type: ADD_INGREDIENT,
         payload: { data: { ...item, key: uuidv4() } },
     }
-}
+};
+
+export function removeIngredient(id) {
+    return {
+        type: REMOVE_INGREDIENT,
+        payload: id
+    }
+};

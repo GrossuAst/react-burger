@@ -21,8 +21,8 @@ export const constructorReducer = (state = initialState, action) => {
         case REMOVE_INGREDIENT:
             return {
                 ...state,
-                // ingredientsInConstructor: ingredientsInConstructor.filter((i) => {})
-            }
+                middleIngredients: state.middleIngredients.filter(item => item.key !== action.payload)
+            }    
         default:
             return state;
     }

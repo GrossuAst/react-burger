@@ -1,6 +1,10 @@
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { removeIngredient } from "../../services/actions/burger-constructor";
 
 import { sendOrder } from "../../utils/constants";
 
@@ -11,10 +15,14 @@ import diamond from "../../images/diamond36x36.svg";
 import stylesBurgerConstructor from "./burger-constructor.module.css";
 import { ingredientStructure } from "../../utils/prop-types";
 
+
 function BurgerConstructor({
   handleOpenModal,
   onDropHandler,
 }) {
+  const dispatch = useDispatch();
+  const [totalPrice, setTotalPrice] = useState(0);
+
   const { ingredientsInConstructor } = useSelector(store => ({
     ingredientsInConstructor: store.ingredientsInConstructor
   }))
@@ -68,7 +76,25 @@ function BurgerConstructor({
     } else {
       // обработчик ошибки
     }
-  }
+  };
+
+  // вычисление стоимости
+  function calculatePrice() {
+    const price = middleElements.map((i) => i.price).reduce((accumulator, current) => accumulator + current, 0) 
+    + (topElement && topElement.price * 2);
+    setTotalPrice(price);
+  };
+
+  useEffect(() => {
+    calculatePrice();
+  }, [topElement, middleElements, bottomElement]);
+  
+  // удаление ингредиента из конструктора
+  function handleConsole(id) {
+    dispatch(removeIngredient(id));
+    // console.log('удален');
+    // console.log(id);
+  };
 
   return (
     <section className={ `pl-4 ${stylesBurgerConstructor.section}` }>
@@ -112,6 +138,7 @@ function BurgerConstructor({
                   text={ item.name }
                   price={ item.price }
                   thumbnail={ item.image_large }
+                  handleClose={ () => handleConsole(item.key) }
                 />
               </li>
             ))
@@ -153,7 +180,7 @@ function BurgerConstructor({
       </div>
       <div className={ `mt-10 ${stylesBurgerConstructor.confirmation}` }>
         <div className={ `mr-10 ${stylesBurgerConstructor.total}` }>
-          <p className="text mr-2">610</p>
+          <p className="text mr-2">{ totalPrice }</p>
           <img alt="валюта- алмаз" src={ diamond }></img>
         </div>
         <Button htmlType="button" type="primary" size="large" onClick={ handleOrderButtonClick }>
