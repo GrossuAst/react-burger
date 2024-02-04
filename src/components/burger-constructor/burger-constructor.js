@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { removeIngredient } from "../../services/actions/burger-constructor";
-
+// import { createOrder } from "../../services/actions/order-ingredients";
 import { sendOrder } from "../../utils/constants";
+import { CREATE_ORDER, CREATE_ORDER_SUCCES, CREATE_ORDER_FAILED } from "../../services/actions/order-ingredients";
 
 import { ConstructorElement, DragIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -66,13 +67,35 @@ function BurgerConstructor({
     })
   });
 
+function createOrder(data) {
+  return function(dispatch) {
+    dispatch({
+      type: CREATE_ORDER
+    })
+    sendOrder(data)
+      .then((res) => {
+        if(res && res.success) {
+          dispatch({
+            type: CREATE_ORDER_SUCCES,
+            payload: res
+          })
+          handleOpenModal();
+        } else { dispatch({
+          type: CREATE_ORDER_FAILED
+        })
+      }
+      })
+      .catch((err) => {
+        dispatch({
+          type: CREATE_ORDER_FAILED
+        })
+      })
+  }
+};
+
   function handleOrderButtonClick() {
     if(!allIngredients.includes(null)) {
-      sendOrder(allIngredients)
-        .then((res) => {
-          console.log(res);
-        })
-      handleOpenModal();  
+      dispatch(createOrder(allIngredients));
     } else {
       // обработчик ошибки
     }
@@ -92,8 +115,6 @@ function BurgerConstructor({
   // удаление ингредиента из конструктора
   function handleConsole(id) {
     dispatch(removeIngredient(id));
-    // console.log('удален');
-    // console.log(id);
   };
 
   return (

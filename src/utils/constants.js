@@ -21,7 +21,6 @@ export function getData() {
 
 // отправка заказа
 export function sendOrder(data) {
-  console.log(JSON.stringify(data))
   return fetch(`${apiConfig.url + 'orders'}`, {
     method: "POST",
     headers: apiConfig.headers,

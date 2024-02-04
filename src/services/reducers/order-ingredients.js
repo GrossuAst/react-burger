@@ -1,24 +1,31 @@
+import { CREATE_ORDER, CREATE_ORDER_SUCCES, CREATE_ORDER_FAILED } from "../actions/order-ingredients";
+
 const initialState = {
-    ingredients: [],
+    feedRequest: false,
+    feedFailed: false,
+    orderDetails: null
 };
 
-export const constructorReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action) => {
     switch(action.type) {
-        case ADD_INGREDIENT:
-            if(action.payload.data.type !== 'bun') {
-                return {
-                    ...state,
-                    middleIngredients: [...state.middleIngredients, action.payload.data]      
-                }
-            }
+        case CREATE_ORDER:
             return {
                 ...state,
-                bun: action.payload.data
+                feedRequest: true,
+                feedFailed: false,
+                orderDetails: action.payload
             }
-        case REMOVE_INGREDIENT:
+        case CREATE_ORDER_SUCCES:
             return {
                 ...state,
-                // ingredientsInConstructor: ingredientsInConstructor.filter((i) => {})
+                orderDetails: action.payload,
+                feedRequest: false
+            }
+        case CREATE_ORDER_FAILED: 
+            return {
+                ...state,
+                feedFailed: true,
+                feedRequest: false
             }
         default:
             return state;

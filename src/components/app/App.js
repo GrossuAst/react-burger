@@ -34,8 +34,6 @@ function App() {
     dispatch(getInitialData());
   }, []);
 
-
-
   function handleCloseModal() {
     setIsModalOpen(false);
     dispatch(clearModalData());

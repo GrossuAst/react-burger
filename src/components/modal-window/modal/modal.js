@@ -15,8 +15,9 @@ function Modal({
     isModalOpen,
     handleCloseModal,
 }) {
-    const { currentIngredient } = useSelector(strore => ({
-        currentIngredient: strore.currentIngredient,
+    const { currentIngredient, orderDetails } = useSelector(store => ({
+        currentIngredient: store.currentIngredient,
+        orderDetails: store.orderDetails
     }));
 
     function handleEscPress(e) {

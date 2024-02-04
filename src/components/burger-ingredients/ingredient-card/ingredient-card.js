@@ -35,7 +35,6 @@ function IngredientCard({
 
     useEffect(() => {
         calculateIngredientsNumber();
-        console.log(number)
     }, [ingredientsInConstructor]);
 
     const isBunChecked = ingredientsInConstructor.bun && ingredientsInConstructor.bun._id === cardData._id;
