@@ -1,15 +1,14 @@
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState, useCallback, useRef } from "react";
+import { useDispatch, useSelector} from "react-redux";
 
 import { removeIngredient } from "../../services/actions/burger-constructor";
-// import { createOrder } from "../../services/actions/order-ingredients";
 import { sendOrder } from "../../utils/constants";
 import { CREATE_ORDER, CREATE_ORDER_SUCCES, CREATE_ORDER_FAILED } from "../../services/actions/order-ingredients";
 
 import { ConstructorElement, DragIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import ConstructorItem from "../constructor-item/constructor-item";
 
 import diamond from "../../images/diamond36x36.svg";
 
@@ -22,11 +21,12 @@ function BurgerConstructor({
   onDropHandler,
 }) {
   const dispatch = useDispatch();
+  const cardRef = useRef();
   const [totalPrice, setTotalPrice] = useState(0);
 
   const { ingredientsInConstructor } = useSelector(store => ({
     ingredientsInConstructor: store.ingredientsInConstructor
-  }))
+  }));
 
   const topElement = ingredientsInConstructor.bun;
   const middleElements = ingredientsInConstructor.middleIngredients;
@@ -69,9 +69,9 @@ function BurgerConstructor({
 
 function createOrder(data) {
   return function(dispatch) {
-    dispatch({
-      type: CREATE_ORDER
-    })
+    // dispatch({
+    //   type: CREATE_ORDER
+    // })
     sendOrder(data)
       .then((res) => {
         if(res && res.success) {
@@ -112,11 +112,6 @@ function createOrder(data) {
     calculatePrice();
   }, [topElement, middleElements, bottomElement]);
   
-  // удаление ингредиента из конструктора
-  function handleConsole(id) {
-    dispatch(removeIngredient(id));
-  };
-
   return (
     <section className={ `pl-4 ${stylesBurgerConstructor.section}` }>
       <div className={ stylesBurgerConstructor.container }>
@@ -147,21 +142,12 @@ function createOrder(data) {
         >
           {
             middleElements.length > 0 ?
-            middleElements.map((item) => (
-              <li               
-                key={item.key}
-                className={ `mr-2 ${stylesBurgerConstructor.listItem}` }
-              >
-                <DragIcon />
-                <ConstructorElement 
-                  type={ item.type }
-                  isLocked={ false }
-                  text={ item.name }
-                  price={ item.price }
-                  thumbnail={ item.image_large }
-                  handleClose={ () => handleConsole(item.key) }
-                />
-              </li>
+            middleElements.map((item, index) => (
+              <ConstructorItem
+                key={ item.key }
+                item={ item }
+                index={ index }
+              />
             ))
             : middleElements.length === 0 &&
             (<li className={ `mr-2 ${stylesBurgerConstructor.listItem}` }>

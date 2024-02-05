@@ -81,7 +81,6 @@ function BurgerIngredients({
                                         name={ i.name }
                                         image={ i.image }
                                         price={ i.price }
-
                                         handleOpenModal={ handleOpenModal }
                                         setCurrentElementInModal={ setCurrentElementInModal }
                                     />
@@ -99,7 +98,6 @@ function BurgerIngredients({
                                         name={ i.name }
                                         image={ i.image }
                                         price={ i.price }
-                                        
                                         handleOpenModal={ handleOpenModal }
                                         setCurrentElementInModal={ setCurrentElementInModal }
                                     />
