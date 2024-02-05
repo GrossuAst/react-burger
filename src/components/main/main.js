@@ -5,14 +5,12 @@ import { useDispatch } from 'react-redux';
 import { addIngredientInConstructor } from '../../services/actions/burger-constructor';
 
 import stylesMain from './main.module.css';
-import { ingredientStructure } from '../../utils/prop-types';
 
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 function Main({
     handleOpenModal,
-    setCurrentElementInModal,
 }) {
     const dispatch = useDispatch();
 
@@ -26,7 +24,6 @@ function Main({
                 <h1 className={`mb-5 ${stylesMain.pageTitle}`}>Соберите бургер</h1>
                 <BurgerIngredients
                     handleOpenModal={ handleOpenModal }
-                    setCurrentElementInModal={ setCurrentElementInModal }
                 />
                 <BurgerConstructor 
                     handleOpenModal={ handleOpenModal }
@@ -38,9 +35,7 @@ function Main({
 };
 
 Main.propTypes = {
-    data: PropTypes.arrayOf(ingredientStructure).isRequired,
     handleOpenModal: PropTypes.func.isRequired,
-    setCurrentElementInModal: PropTypes.func.isRequired,
 };
 
 export default Main;

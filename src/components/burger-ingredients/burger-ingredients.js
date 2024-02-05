@@ -7,11 +7,9 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "./ingredient-card/ingredient-card";
 
 import stylesBurgerIngredients from './burger-ingredients.module.css';
-import { ingredientStructure } from "../../utils/prop-types";
 
 function BurgerIngredients({
-    handleOpenModal,
-    setCurrentElementInModal
+    handleOpenModal
 }) {
     const [current, setCurrent] = useState('buns');
     const bunsRef = useRef();
@@ -65,7 +63,6 @@ function BurgerIngredients({
                                         image={ i.image }
                                         price={ i.price }
                                         handleOpenModal={ handleOpenModal }
-                                        setCurrentElementInModal={ setCurrentElementInModal }
                                     />
                                 </li>    
                             ))
@@ -82,7 +79,6 @@ function BurgerIngredients({
                                         image={ i.image }
                                         price={ i.price }
                                         handleOpenModal={ handleOpenModal }
-                                        setCurrentElementInModal={ setCurrentElementInModal }
                                     />
                                 </li>    
                             ))
@@ -99,7 +95,6 @@ function BurgerIngredients({
                                         image={ i.image }
                                         price={ i.price }
                                         handleOpenModal={ handleOpenModal }
-                                        setCurrentElementInModal={ setCurrentElementInModal }
                                     />
                                 </li>    
                             ))
@@ -112,9 +107,7 @@ function BurgerIngredients({
 };
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientStructure).isRequired,
     handleOpenModal: PropTypes.func.isRequired,
-    setCurrentElementInModal: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredients;

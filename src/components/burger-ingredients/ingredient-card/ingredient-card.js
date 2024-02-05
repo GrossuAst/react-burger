@@ -84,7 +84,6 @@ IngredientCard.propTypes = {
     image: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     handleOpenModal: PropTypes.func.isRequired,
-    setCurrentElementInModal: PropTypes.func.isRequired,
 };
 
 export default IngredientCard;

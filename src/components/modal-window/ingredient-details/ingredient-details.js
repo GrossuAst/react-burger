@@ -1,7 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import stylesIngredientDetails from './ingredient-details.module.css';
-import { ingredientStructure } from '../../../utils/prop-types';
 
 function IngredientDetails() {
     const { currentIngredient } = useSelector(store => ({
@@ -39,10 +38,6 @@ function IngredientDetails() {
             </ul>
         </article>
     );
-};
-
-IngredientDetails.propTypes = {
-    currentElementInModal: ingredientStructure.isRequired
 };
 
 export default IngredientDetails;

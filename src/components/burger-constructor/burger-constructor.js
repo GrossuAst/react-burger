@@ -1,27 +1,23 @@
 import PropTypes from "prop-types";
 import { useDrop } from "react-dnd";
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector} from "react-redux";
 
-import { removeIngredient } from "../../services/actions/burger-constructor";
 import { sendOrder } from "../../utils/constants";
-import { CREATE_ORDER, CREATE_ORDER_SUCCES, CREATE_ORDER_FAILED } from "../../services/actions/order-ingredients";
+import { CREATE_ORDER_SUCCES, CREATE_ORDER_FAILED } from "../../services/actions/order-ingredients";
 
-import { ConstructorElement, DragIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorItem from "../constructor-item/constructor-item";
 
 import diamond from "../../images/diamond36x36.svg";
 
 import stylesBurgerConstructor from "./burger-constructor.module.css";
-import { ingredientStructure } from "../../utils/prop-types";
-
 
 function BurgerConstructor({
   handleOpenModal,
   onDropHandler,
 }) {
   const dispatch = useDispatch();
-  const cardRef = useRef();
   const [totalPrice, setTotalPrice] = useState(0);
 
   const { ingredientsInConstructor } = useSelector(store => ({
@@ -69,9 +65,6 @@ function BurgerConstructor({
 
 function createOrder(data) {
   return function(dispatch) {
-    // dispatch({
-    //   type: CREATE_ORDER
-    // })
     sendOrder(data)
       .then((res) => {
         if(res && res.success) {
@@ -199,8 +192,8 @@ function createOrder(data) {
 };
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientStructure).isRequired,
-  handleOpenModal: PropTypes.func.isRequired
+  handleOpenModal: PropTypes.func.isRequired,
+  onDropHandler: PropTypes.func.isRequired
 };
 
 export default BurgerConstructor;

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { getInitialData } from "../../services/actions/burger-ingredients";
 import { clearModalData } from "../../services/actions/current-ingredient";
-import { sendOrder } from "../../utils/constants";
 
 import Preloader from "../ui/preloader/Preloader";
 import AppHeader from "../app-header/app-header";
@@ -24,11 +23,6 @@ function App() {
     feedRequest: store.ingredients.feedRequest,
     feedFailed: store.ingredients.feedFailed
   }));
-
-  const burgerData = ["643d69a5c3f7b9001cfa093d", "643d69a5c3f7b9001cfa0943", "643d69a5c3f7b9001cfa0945", "643d69a5c3f7b9001cfa093d"];
-  useEffect(() => {
-    sendOrder(burgerData);
-  }, []);
 
   useEffect(() => {
     dispatch(getInitialData());

@@ -64,10 +64,6 @@ function Modal({
 
 Modal.propTypes = {
     isModalOpen: PropTypes.bool.isRequired,
-    currentElementInModal: PropTypes.oneOfType([
-        PropTypes.oneOf([null]),
-        ingredientStructure
-    ]),
     handleCloseModal: PropTypes.func.isRequired
 };
 

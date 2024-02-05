@@ -1,4 +1,6 @@
 import { DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ingredientStructure } from "../../utils/prop-types";
+import PropTypes from 'prop-types';
 
 import { useRef, useCallback } from "react";
 import { useDrag, useDrop } from "react-dnd";
@@ -10,6 +12,8 @@ import styles from './constructor-item.module.css';
 
 function ConstructorItem({ item, index }) {
     const dispatch = useDispatch();
+    console.log(item)
+    console.log(index)
 
     const cardRef = useRef();
 
@@ -83,6 +87,13 @@ function ConstructorItem({ item, index }) {
             />
         </li>
     );
+};
+
+
+
+ConstructorItem.propTypes = {
+  item: ingredientStructure.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default ConstructorItem;
