@@ -1,4 +1,4 @@
-import { getData } from "../../utils/constants";
+import { getData } from "../../utils/api";
 
 export const GET_INITIAL_DATA = 'ADD_INITIAL_DATA';
 export const GET_INITIAL_DATA_FAILED = 'GET_INITIAL_DATA_FAILED';

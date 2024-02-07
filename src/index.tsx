@@ -7,7 +7,7 @@ import './vendor/normalize.css';
 import './vendor/fonts/fonts.css';
 import './index.css';
 
-import App from './components/app/App';
+import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
 
 import { store } from './services/store.js';

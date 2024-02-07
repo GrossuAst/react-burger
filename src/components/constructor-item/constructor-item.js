@@ -12,8 +12,6 @@ import styles from './constructor-item.module.css';
 
 function ConstructorItem({ item, index }) {
     const dispatch = useDispatch();
-    console.log(item)
-    console.log(index)
 
     const cardRef = useRef();
 

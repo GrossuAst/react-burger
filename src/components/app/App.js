@@ -52,6 +52,7 @@ function App() {
       <Modal
         isModalOpen={ isModalOpen }
         handleCloseModal={ handleCloseModal }
+        currentIngredient={ currentIngredient }
       >
         {
           currentIngredient.currentIngredient ? <IngredientDetails /> : <OrderDetails />

@@ -3,7 +3,7 @@ import { useDrop } from "react-dnd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector} from "react-redux";
 
-import { sendOrder } from "../../utils/constants";
+import { sendOrder } from "../../utils/api";
 import { CREATE_ORDER_SUCCES, CREATE_ORDER_FAILED } from "../../services/actions/order-ingredients";
 
 import { ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";

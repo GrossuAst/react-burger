@@ -19,7 +19,6 @@ export function removeIngredient(id) {
 };
 
 export function moveInvgredient(toIndex, fromIndex) {
-    console.log('экшен movieIngredient')
     return {
         type: MOVE_INGREDIENT,
         payload: {

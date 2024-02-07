@@ -14,12 +14,8 @@ function Modal({
     children,
     isModalOpen,
     handleCloseModal,
+    currentIngredient
 }) {
-    const { currentIngredient, orderDetails } = useSelector(store => ({
-        currentIngredient: store.currentIngredient,
-        orderDetails: store.orderDetails
-    }));
-
     function handleEscPress(e) {
         if(e.key === 'Escape') {
             handleCloseModal();
@@ -64,7 +60,11 @@ function Modal({
 
 Modal.propTypes = {
     isModalOpen: PropTypes.bool.isRequired,
-    handleCloseModal: PropTypes.func.isRequired
+    handleCloseModal: PropTypes.func.isRequired,
+    currentIngredient: PropTypes.oneOfType([
+        PropTypes.ingredientStructure,
+        PropTypes.oneOf([null])
+    ])
 };
 
 export default Modal;

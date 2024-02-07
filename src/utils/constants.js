@@ -5,30 +5,3 @@ export const apiConfig = {
         "Accept": "application/json",
   }
 };
-
-// получение начальных данных
-export function getData() {
-   return fetch(`${apiConfig.url + 'ingredients'}`, {
-     method: "GET",
-     headers: apiConfig.headers
-   }).then((res) => {
-     if(res.ok) {
-       return res.json();
-     }
-     return Promise.reject(`Ошибка ${res.status}`);
-   });
-};
-
-// отправка заказа
-export function sendOrder(data) {
-  return fetch(`${apiConfig.url + 'orders'}`, {
-    method: "POST",
-    headers: apiConfig.headers,
-    body: JSON.stringify({ingredients: data})
-  }).then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка ${res.status}`)
-  })
-}
