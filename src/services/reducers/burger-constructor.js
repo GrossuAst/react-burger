@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT } from "../actions/burger-constructor";
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSTRUCTOR } from "../actions/burger-constructor";
 
 const initialState = {
     bun: null,
@@ -7,6 +7,12 @@ const initialState = {
 
 export const constructorReducer = (state = initialState, action) => {
     switch(action.type) {
+        case CLEAR_CONSTRUCTOR: 
+            return {
+                ...state,
+                bun: null,
+                middleIngredients: []
+            }
         case ADD_INGREDIENT:
             if(action.payload.data.type !== 'bun') {
                 return {

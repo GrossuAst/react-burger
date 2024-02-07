@@ -1,5 +1,12 @@
 import { apiConfig } from "./constants";
 
+function checkResponse(res) {
+    if(res.ok) {
+        return res.json();
+    }
+    return Promise.reject(`Ошибка ${res.status}`);
+};
+
 // получение начальных данных
 export function getData() {
     return fetch(`${apiConfig.url + 'ingredients'}`, {
@@ -21,9 +28,3 @@ export function sendOrder(data) {
     })
 };
 
-function checkResponse(res) {
-    if(res.ok) {
-        return res.json();
-    }
-    return Promise.reject(`Ошибка ${res.status}`);
-};

@@ -3,8 +3,7 @@ import { useDrop } from "react-dnd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector} from "react-redux";
 
-import { sendOrder } from "../../utils/api";
-import { CREATE_ORDER_SUCCES, CREATE_ORDER_FAILED } from "../../services/actions/order-ingredients";
+import { createOrder } from "../../services/actions/order-ingredients";
 
 import { ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorItem from "../constructor-item/constructor-item";
@@ -63,35 +62,9 @@ function BurgerConstructor({
     })
   });
 
-function createOrder(data) {
-  return function(dispatch) {
-    sendOrder(data)
-      .then((res) => {
-        if(res && res.success) {
-          dispatch({
-            type: CREATE_ORDER_SUCCES,
-            payload: res
-          })
-          handleOpenModal();
-        } else { dispatch({
-          type: CREATE_ORDER_FAILED
-        })
-      }
-      })
-      .catch((err) => {
-        dispatch({
-          type: CREATE_ORDER_FAILED
-        })
-      })
-  }
-};
-
   function handleOrderButtonClick() {
-    if(!allIngredients.includes(null)) {
-      dispatch(createOrder(allIngredients));
-    } else {
-      // обработчик ошибки
-    }
+    dispatch(createOrder(allIngredients));
+    handleOpenModal();
   };
 
   // вычисление стоимости

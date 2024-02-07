@@ -3,6 +3,13 @@ import { v4 as uuidv4 } from 'uuid';
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const REMOVE_INGREDIENT = 'REMOVE_INGREDIENT';
 export const MOVE_INGREDIENT = 'MOVE_INGREDIENT';
+export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
+
+export function clearConstructor() {
+    return {
+        type: CLEAR_CONSTRUCTOR
+    }
+};
 
 export function addIngredientInConstructor(item) {
     return {

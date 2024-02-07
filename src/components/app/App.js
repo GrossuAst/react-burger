@@ -21,7 +21,7 @@ function App() {
     ingredients: store.ingredients,
     currentIngredient: store.currentIngredient,
     feedRequest: store.ingredients.feedRequest,
-    feedFailed: store.ingredients.feedFailed
+    feedFailed: store.ingredients.feedFailed,
   }));
 
   useEffect(() => {
