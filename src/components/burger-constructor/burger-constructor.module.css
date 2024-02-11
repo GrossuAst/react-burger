@@ -12,6 +12,26 @@
     align-items: end;
 }
 
+.ingredientContainer {
+    width: 536px;
+    height: 80px;
+    background-color: #1C1C21;
+    border-radius: 40px;
+}
+
+.containerText {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.ingredientContainerTop {
+    border-radius: 88px 88px 40px 40px;
+}
+
+.ingredientContainerBottom {
+    border-radius: 40px 40px 88px 88px;
+}
+
 .list {
     display: flex;
     flex-direction: column;

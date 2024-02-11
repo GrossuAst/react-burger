@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import stylesIngredientDetails from './ingredient-details.module.css';
-import { ingredientStructure } from '../../../utils/prop-types';
 
-function IngredientDetails({
-    currentElementInModal
-}) {
+function IngredientDetails() {
+    const { currentIngredient } = useSelector(store => ({
+        currentIngredient: store.currentIngredient
+    }));
 
-    const { name, image, calories, carbohydrates, fat, proteins, } = currentElementInModal;
+    const { name, image, calories, carbohydrates, fat, proteins, } = currentIngredient.currentIngredient;
 
     return (
         <article className={ ` ${stylesIngredientDetails.ingredientInfo}` }>
@@ -38,10 +38,6 @@ function IngredientDetails({
             </ul>
         </article>
     );
-};
-
-IngredientDetails.propTypes = {
-    currentElementInModal: ingredientStructure.isRequired
 };
 
 export default IngredientDetails;
