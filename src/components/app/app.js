@@ -1,8 +1,12 @@
+import { Routes, Route } from 'react-router-dom';
+
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getInitialData } from "../../services/actions/burger-ingredients";
 import { clearModalData } from "../../services/actions/current-ingredient";
+
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
 
 import Preloader from "../ui/preloader/Preloader";
 import AppHeader from "../app-header/app-header";
@@ -41,13 +45,47 @@ function App() {
     <>
       <AppHeader />
 
-      { 
-        feedRequest ? <Preloader /> : feedFailed ? <ErrorMessage /> :
-        ingredients.ingredients.length > 0 &&
-        <Main
-          handleOpenModal={ handleOpenModal }
+      <Routes>
+
+        <Route path='/' 
+          element={
+            feedRequest ? <Preloader /> : feedFailed ? <ErrorMessage /> :
+            ingredients.ingredients.length > 0 &&
+            <Main
+              handleOpenModal={ handleOpenModal }
+            />
+          } 
         />
-      }
+
+        <Route path='/login'
+          // element={ <Login /> }
+        />
+
+        <Route path='/register'
+          // element={ <Register /> }
+        />
+
+        <Route path='/forgot-password'
+          // element={ <ForgotPassword /> }
+        />
+
+        <Route path='/reset-password'
+          // element={ <ResetPassword /> }
+        />
+
+        <Route path='/profile'
+          // element={ <Profile /> }
+        />
+
+        <Route path='/ingredients/:id'
+          // element={ <IngredientPage /> }
+        />
+
+        <Route path='*'
+          element={ <NotFoundPage /> }
+        />
+
+      </Routes>
 
       <Modal
         isModalOpen={ isModalOpen }

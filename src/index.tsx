@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { BrowserRouter } from 'react-router-dom';
 
 import './vendor/normalize.css';
 import './vendor/fonts/fonts.css';
@@ -11,9 +11,6 @@ import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
 
 import { store } from './services/store.js';
-import { rootReducer } from './services/reducers';
-
-// const store = configureStore();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -21,9 +18,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <Provider store={ store }>
-      <App />  
-    </Provider>
+    <BrowserRouter>
+      <Provider store={ store }>
+        <App />  
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
