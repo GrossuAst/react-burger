@@ -7,6 +7,9 @@ export const CREATE_ORDER_FAILED = 'CREATE_ORDER_FAILED';
 
 export function createOrder(data) {
     return function(dispatch) {
+        if(data.includes(null)) {
+            return
+        }
         dispatch({
             type: CREATE_ORDER
         });

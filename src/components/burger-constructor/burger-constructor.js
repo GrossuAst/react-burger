@@ -19,8 +19,9 @@ function BurgerConstructor({
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const { ingredientsInConstructor } = useSelector(store => ({
-    ingredientsInConstructor: store.ingredientsInConstructor
+  const { ingredientsInConstructor, orderDetails } = useSelector(store => ({
+    ingredientsInConstructor: store.ingredientsInConstructor,
+    orderDetails: store.orderDetails.orderDetails
   }));
 
   const topElement = ingredientsInConstructor.bun;
@@ -156,7 +157,10 @@ function BurgerConstructor({
           <p className="text mr-2">{ totalPrice }</p>
           <img alt="валюта- алмаз" src={ diamond }></img>
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={ handleOrderButtonClick }>
+        <Button htmlType="button" type="primary" size="large" 
+          onClick={ handleOrderButtonClick }
+          disabled={ allIngredients.includes(null) }
+        >
           Оформить заказ
         </Button>
       </div>
