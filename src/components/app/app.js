@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getInitialData } from "../../services/actions/burger-ingredients";
 import { clearModalData } from "../../services/actions/current-ingredient";
 
+import Register from '../../pages/register/register';
+import Login from '../../pages/login/login';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 
 import Preloader from "../ui/preloader/Preloader";
@@ -58,11 +60,11 @@ function App() {
         />
 
         <Route path='/login'
-          // element={ <Login /> }
+          element={ <Login /> }
         />
 
         <Route path='/register'
-          // element={ <Register /> }
+          element={ <Register /> }
         />
 
         <Route path='/forgot-password'
