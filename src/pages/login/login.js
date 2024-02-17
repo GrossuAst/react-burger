@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import styles from './login.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { login } from '../../utils/auth-api';
 
 function Login() {
+    const navigate = useNavigate();
+
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     function handleIconClick() {
@@ -17,7 +20,14 @@ function Login() {
     function handleSubmitForm(e) {
         e.preventDefault();
         if(values.email && values.password) {
-            
+            login(values)
+                .then((res) => {
+                    setValues({email: '', password: ''})
+                    navigate('/');
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         }
         return
     };

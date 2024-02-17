@@ -1,8 +1,15 @@
 import { checkResponse } from "./api";
 import { apiConfig } from "./constants";
 
-export function login() {
-    
+export function login(data) {
+    return fetch(`${apiConfig.url + 'auth/login'}`, {
+        method: 'POST',
+        headers: apiConfig.headers,
+        body: JSON.stringify({ email: data.email, password: data.password })
+    })
+        .then((res) => {
+            return checkResponse(res);
+        })
 };
 
 export function logout() {

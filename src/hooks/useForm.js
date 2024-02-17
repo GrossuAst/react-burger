@@ -4,7 +4,7 @@ import { useState } from "react";
 export function useForm(initialValues) {
     const [values, setValues] = useState(initialValues);
 
-    console.log(values)
+    // console.log(values)
   
     const handleChange = (event) => {
       const target = event.target;

@@ -21,7 +21,8 @@ function ResetPassword() {
         if(values.password && values.code) {
             resetPassword(values)
                 .then((res) => {
-                    console.log(res);
+                    setValues({password: '', code: ''});
+                    navigate('/login');
                 })
                 .catch((err) => {
                     console.log(err);

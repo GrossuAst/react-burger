@@ -1,12 +1,13 @@
 import styles from './register.module.css';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useForm } from '../../hooks/useForm';
 import { registerUser } from '../../utils/auth-api';
 
 function Register() {
+    const navigate = useNavigate();
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     function handleIconClick() {
@@ -20,7 +21,8 @@ function Register() {
         if(values.name && values.email && values.password) {
             registerUser(values)
                 .then((res) => {
-                    console.log(res);
+                    setValues({name: '', email: '', password: ''});
+                    navigate('/login');
                 })
                 .catch((err) => {
                     console.log(err);

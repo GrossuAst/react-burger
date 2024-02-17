@@ -15,7 +15,7 @@ function ForgotPassword() {
             restorePassword(values.email)
                 .then((res) => {
                     if(res.success) {
-                        setValues({});
+                        setValues({email: ''});
                         navigate('/reset-password');
                     };
                     return
