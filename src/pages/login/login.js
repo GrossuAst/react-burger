@@ -1,29 +1,55 @@
+import { useState } from 'react';
 import styles from './login.module.css';
-
 import { Link } from 'react-router-dom';
-
+import { useForm } from '../../hooks/useForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function Login() {
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    function handleIconClick() {
+        !isPasswordVisible ? setIsPasswordVisible(true) : isPasswordVisible && setIsPasswordVisible(false);
+    };
+
+    const { values, handleChange, setValues } = useForm({email: '', password: ''});
+
+    function handleSubmitForm(e) {
+        e.preventDefault();
+        if(values.email && values.password) {
+            
+        }
+        return
+    };
+
     return (
         <section className={styles.formSection}>
-            <form className={styles.form}>
-                <h1 className={ styles.title }>Регистрация</h1>
+            <form className={styles.form}
+                onSubmit={ handleSubmitForm }
+            >
+                <h1 className={ styles.title }>Вход</h1>
                 <Input 
                     type={'email'}
+                    name={'email'}
                     placeholder={'E-mail'}
+                    onChange={ handleChange }
+                    value={ values.email }
                 />
                 <Input
-                    type={'password'}
+                    type={ !isPasswordVisible ? 'password' : 'text'}
+                    name={'password'}
                     placeholder={'Пароль'}
-                    icon={'ShowIcon'}
+                    icon={ !isPasswordVisible ? 'ShowIcon' : 'HideIcon'}
+                    onIconClick={ handleIconClick }
+                    onChange={ handleChange }
+                    value={ values.password }
                 />
                 <div className={ styles.buttonPlace }>
                     <Button 
                         htmlType="submit"
                         type="primary"
                         size="medium"
+                        disabled={ !values.password || !values.email ? true : false }
                     >
                     Войти
                     </Button>    

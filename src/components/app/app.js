@@ -6,8 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { getInitialData } from "../../services/actions/burger-ingredients";
 import { clearModalData } from "../../services/actions/current-ingredient";
 
+import Home from '../../pages/home/home';
 import Register from '../../pages/register/register';
 import Login from '../../pages/login/login';
+import ForgotPassword from '../../pages/forgot-password/forgot-password';
+import ResetPassword from '../../pages/reset-password/reset-password';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 
 import Preloader from "../ui/preloader/Preloader";
@@ -49,14 +52,14 @@ function App() {
 
       <Routes>
 
-        <Route path='/' 
+        <Route path='/'
           element={
             feedRequest ? <Preloader /> : feedFailed ? <ErrorMessage /> :
             ingredients.ingredients.length > 0 &&
-            <Main
+            <Home 
               handleOpenModal={ handleOpenModal }
             />
-          } 
+          }
         />
 
         <Route path='/login'
@@ -68,11 +71,11 @@ function App() {
         />
 
         <Route path='/forgot-password'
-          // element={ <ForgotPassword /> }
+          element={ <ForgotPassword /> }
         />
 
         <Route path='/reset-password'
-          // element={ <ResetPassword /> }
+          element={ <ResetPassword /> }
         />
 
         <Route path='/profile'
