@@ -9,13 +9,14 @@ import { clearModalData } from "../../services/actions/current-ingredient";
 import Home from '../../pages/home/home';
 import Register from '../../pages/register/register';
 import Login from '../../pages/login/login';
+import Profile from '../../pages/profile/profile';
+import OrdersList from '../../pages/orders-history/orders-list';
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import ResetPassword from '../../pages/reset-password/reset-password';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 
 import Preloader from "../ui/preloader/Preloader";
 import AppHeader from "../app-header/app-header";
-import Main from "../main/main";
 import Modal from "../modal-window/modal/modal";
 import IngredientDetails from "../modal-window/ingredient-details/ingredient-details";
 import OrderDetails from "../modal-window/order-details/order-details";
@@ -79,7 +80,11 @@ function App() {
         />
 
         <Route path='/profile'
-          // element={ <Profile /> }
+          element={ <Profile /> }
+        />
+
+        <Route path='/profile/orders'
+          element={ <OrdersList /> }
         />
 
         <Route path='/ingredients/:id'
