@@ -5,9 +5,13 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useForm } from '../../hooks/useForm';
 import { registerUser } from '../../utils/auth-api';
+import { registerRequest } from '../../services/actions/register';
+import { useDispatch } from 'react-redux';
 
 function Register() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     function handleIconClick() {
@@ -16,17 +20,15 @@ function Register() {
 
     const { values, handleChange, setValues } = useForm({name: '', email: '', password: ''});
 
+    const successfulHandler = () => {
+        setValues({name: '', email: '', password: ''});
+        navigate('/login');
+    };
+
     function handleSubmitForm(e) {
         e.preventDefault();
         if(values.name && values.email && values.password) {
-            registerUser(values)
-                .then((res) => {
-                    setValues({name: '', email: '', password: ''});
-                    navigate('/login');
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
+            dispatch(registerRequest(values, successfulHandler));
         }
         return
     };
