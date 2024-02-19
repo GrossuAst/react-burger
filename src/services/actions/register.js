@@ -17,6 +17,7 @@ export function registerRequest(data, handler) {
                         payload: res
                     });
                     localStorage.setItem('refreshToken', res.refreshToken);
+                    localStorage.setItem('accessToken', res.accessToken);
                     handler();
                 } else {
                     dispatch({

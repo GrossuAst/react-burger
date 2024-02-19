@@ -1,13 +1,17 @@
-import { useState } from 'react';
 import styles from './login.module.css';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { login } from '../../utils/auth-api';
+import { loginUser } from '../../services/actions/login';
+import { useDispatch } from 'react-redux';
 
 function Login() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    
+    const { values, handleChange, setValues } = useForm({email: '', password: ''});
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -15,19 +19,15 @@ function Login() {
         !isPasswordVisible ? setIsPasswordVisible(true) : isPasswordVisible && setIsPasswordVisible(false);
     };
 
-    const { values, handleChange, setValues } = useForm({email: '', password: ''});
+    const successfulHandler = () => {
+        setValues({email: '', password: ''});
+        navigate('/');
+    };
 
     function handleSubmitForm(e) {
         e.preventDefault();
         if(values.email && values.password) {
-            login(values)
-                .then((res) => {
-                    setValues({email: '', password: ''})
-                    navigate('/');
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
+            dispatch(loginUser(values, successfulHandler));
         }
         return
     };
