@@ -15,28 +15,19 @@ import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import ResetPassword from '../../pages/reset-password/reset-password';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 
-import Preloader from "../ui/preloader/Preloader";
 import AppHeader from "../app-header/app-header";
 import Modal from "../modal-window/modal/modal";
 import IngredientDetails from "../modal-window/ingredient-details/ingredient-details";
 import OrderDetails from "../modal-window/order-details/order-details";
-import ErrorMessage from "../ui/error-message/error-message";
 
 function App() {
   const dispatch = useDispatch();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { ingredients, currentIngredient, feedRequest, feedFailed } = useSelector(store => ({
-    ingredients: store.ingredients,
+  const { currentIngredient } = useSelector(store => ({
     currentIngredient: store.currentIngredient,
-    feedRequest: store.ingredients.feedRequest,
-    feedFailed: store.ingredients.feedFailed,
   }));
-
-  useEffect(() => {
-    dispatch(getInitialData());
-  }, []);
 
   function handleCloseModal() {
     setIsModalOpen(false);
@@ -54,13 +45,7 @@ function App() {
       <Routes>
 
         <Route path='/'
-          element={
-            feedRequest ? <Preloader /> : feedFailed ? <ErrorMessage /> :
-            ingredients.ingredients.length > 0 &&
-            <Home 
-              handleOpenModal={ handleOpenModal }
-            />
-          }
+          element={ <Home handleOpenModal={ handleOpenModal } /> }
         />
 
         <Route path='/login'
