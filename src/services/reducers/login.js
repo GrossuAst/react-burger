@@ -1,12 +1,10 @@
-import { GET_USER_DATA, GET_USER_DATA_SUCCESS, GET_USER_DATA_FAILED } from "../actions/login";
+import { GET_USER_DATA, GET_USER_DATA_SUCCESS, GET_USER_DATA_FAILED, IS_AUTH_CHECKED } from "../actions/login";
 
 const initialState = {
     feedRequest: false,
     feedFailed: false,
-    user: {
-        email: '',
-        name: ''
-    }
+    isAuthChecked: false,
+    user: null,
 };
 
 export const loginReducer = (state = initialState, action) => {
@@ -32,12 +30,15 @@ export const loginReducer = (state = initialState, action) => {
         case GET_USER_DATA_FAILED: {
             return {
                 ...state,
-                user: {
-                    email: '',
-                    name: '',
-                },
+                user: null,
                 feedRequest: false,
                 feedFailed: true
+            }
+        }
+        case IS_AUTH_CHECKED: {
+            return {
+                ...state,
+                isAuthChecked: action.payload
             }
         }
         default: {

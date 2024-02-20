@@ -5,6 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { getInitialData } from "../../services/actions/burger-ingredients";
 import { clearModalData } from "../../services/actions/current-ingredient";
+import { checkUserAuth } from '../../services/actions/login';
+
+import { fetchWithRefresh } from '../../utils/auth-api';
 
 import Home from '../../pages/home/home';
 import Register from '../../pages/register/register';
@@ -28,6 +31,10 @@ function App() {
   const { currentIngredient } = useSelector(store => ({
     currentIngredient: store.currentIngredient,
   }));
+
+  useEffect(() => {
+    dispatch(checkUserAuth());
+  }, []);
 
   function handleCloseModal() {
     setIsModalOpen(false);

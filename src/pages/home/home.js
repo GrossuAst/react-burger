@@ -20,8 +20,6 @@ function Home({ handleOpenModal }) {
       dispatch(getInitialData());
     }, []);
 
-    console.log(feedRequest);
-
     return (
         feedRequest ? <Preloader /> : feedFailed ? <ErrorMessage /> :
         ingredients.ingredients.length > 0 &&

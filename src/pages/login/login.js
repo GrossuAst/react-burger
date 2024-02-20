@@ -19,7 +19,7 @@ function Login() {
         !isPasswordVisible ? setIsPasswordVisible(true) : isPasswordVisible && setIsPasswordVisible(false);
     };
 
-    const successfulHandler = () => {
+    function successfulHandler() {
         setValues({email: '', password: ''});
         navigate('/');
     };

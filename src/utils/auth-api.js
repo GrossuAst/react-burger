@@ -1,5 +1,15 @@
 import { checkResponse } from "./api";
-import { apiConfig } from "./constants";
+import { apiConfig, getUserDataUrl, getUserDataOptions } from "./constants";
+
+export function getUserData() {
+    return fetchWithRefresh(getUserDataUrl, getUserDataOptions)
+        .then((res) => {
+            return res;
+        })
+        .catch((err) => {
+            throw err;
+        })
+};
 
 export function login(data) {
     return fetch(`${apiConfig.url + 'auth/login'}`, {
@@ -47,4 +57,40 @@ export function resetPassword(data) {
         .then((res) => {
             return checkResponse(res);
         })
+};
+
+export function refreshToken() {
+    console.log(`${apiConfig.url + 'auth/token'}`)
+    return fetch(`${apiConfig.url + 'auth/token'}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({
+            token: localStorage.getItem("refreshToken"),
+        }),
+    })
+    .then((res) => {
+        return checkResponse(res)
+    })
+    .then((refreshData) => {
+        if (!refreshData.success) {
+            return Promise.reject(refreshData);
+        }
+        localStorage.setItem("refreshToken", refreshData.refreshToken); 
+        localStorage.setItem("accessToken", refreshData.accessToken);
+        return refreshData;
+    });
+  };
+
+export async function fetchWithRefresh(url, options) {
+    try {
+        const res = await fetch(url, options);
+        return await checkResponse(res);
+    } catch (err) {
+        const refreshData = await refreshToken();
+        options.headers.authorization = refreshData.accessToken;
+        const res = await fetch(url, options);
+        return await checkResponse(res);
+    }
 };
