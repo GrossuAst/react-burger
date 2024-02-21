@@ -23,7 +23,14 @@ export function login(data) {
 };
 
 export function logout() {
-
+    return fetch(`${apiConfig.url + 'auth/logout'}`, {
+        method: 'POST',
+        headers: apiConfig.headers,
+        body: JSON.stringify({ token: localStorage.getItem('refreshToken') })
+    })
+        .then((res) => {
+            return checkResponse(res);
+        })
 };
 
 export function registerUser(data) {

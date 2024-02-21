@@ -11,6 +11,6 @@ export const rootReducer = combineReducers({
     ingredientsInConstructor: constructorReducer,
     currentIngredient: currenIngredientReducer,
     orderDetails: orderReducer,
-    registerReducer: registerReducer,
-    loginReducer: loginReducer,
+    register: registerReducer,
+    login: loginReducer,
 });

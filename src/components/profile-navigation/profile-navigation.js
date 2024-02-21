@@ -1,7 +1,24 @@
 import styles from './profile-navigation.module.css';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { logout } from '../../utils/auth-api';
 
 function ProfileNavigation() {
+    const navigate = useNavigate();
+
+    function handleLogut() {
+        logout()
+            .then((res) =>{
+                if(res && res.success) {
+                    localStorage.removeItem('refreshToken');
+                    localStorage.removeItem('accessToken');
+                    navigate('/login');
+                }
+            })
+            .catch((err) => {
+                
+            })
+    };
+
     return (
         <nav className={ styles.nav }>
             <ul className={ `${styles.list} pl-5` }>
@@ -22,12 +39,12 @@ function ProfileNavigation() {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to='/login' end
-                        className={ ({isActive}) => isActive ? `text text_type_main-medium ${styles.link} ${styles.linkActive}` :
-                        `text text_type_main-medium ${styles.link} ${styles.linkInactive}` }
+                    <button
+                        className={ `text text_type_main-medium ${styles.link} ${styles.linkInactive} ${styles.logoutButton}` }
+                        onClick={ handleLogut }
                     >
                         Выход
-                    </NavLink>
+                    </button>
                 </li>
             </ul>
         </nav>

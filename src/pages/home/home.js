@@ -17,7 +17,9 @@ function Home({ handleOpenModal }) {
     }));
 
     useEffect(() => {
-      dispatch(getInitialData());
+        if(ingredients.ingredients.length === 0) {
+            dispatch(getInitialData());
+        }
     }, []);
 
     return (

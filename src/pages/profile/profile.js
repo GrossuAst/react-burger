@@ -3,9 +3,13 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import ProfileNavigation from '../../components/profile-navigation/profile-navigation';
 import { useForm } from '../../hooks/useForm';
 import { useState } from 'react';
-import { EditIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from 'react-redux';
 
 function Profile() {
+    const { user } = useSelector(store => ({
+        user: store.login.user
+    }));
+
     const [isFormActive, setIsFormActive] = useState(true);
 
     const { values, handleChange, setValues } = useForm();
@@ -21,8 +25,8 @@ function Profile() {
                     type={'text'}
                     name={'name'}
                     placeholder={'Имя'}
-                    value={'Марк'}
-                    onChange={ handleChange }
+                    value={ user ? user.name : 'Загрузка данных' }
+                    onChange={ handleChange } 
                     icon={'EditIcon'}
                     // disabled={ isFormActive ? true : false }
                 />
@@ -30,7 +34,7 @@ function Profile() {
                     type={'email'}
                     name={'email'}
                     placeholder={'Логин'}
-                    value={'Заглушка'}
+                    value={ user ? user.name : 'Загрузка данных' }
                     onChange={ handleChange }
                     icon={'EditIcon'}
                     // disabled={ isFormActive ? true : false }
