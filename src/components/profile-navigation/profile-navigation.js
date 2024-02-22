@@ -1,5 +1,5 @@
 import styles from './profile-navigation.module.css';
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Outlet } from "react-router-dom";
 import { logout } from '../../utils/auth-api';
 
 function ProfileNavigation() {
@@ -31,7 +31,7 @@ function ProfileNavigation() {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to='/profile/orders' end
+                    <NavLink to='orders' end
                         className={ ({isActive}) => isActive ? `text text_type_main-medium ${styles.link} ${styles.linkActive}` :
                         `text text_type_main-medium ${styles.link} ${styles.linkInactive}` }
                     >

@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import ProtectedRoute from '../protected-route/protected-route';
 
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,7 +14,7 @@ import Home from '../../pages/home/home';
 import Register from '../../pages/register/register';
 import Login from '../../pages/login/login';
 import Profile from '../../pages/profile/profile';
-import OrdersList from '../../pages/orders-history/orders-list';
+import Orders from '../../pages/orders/orders';
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import ResetPassword from '../../pages/reset-password/reset-password';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
@@ -56,7 +57,7 @@ function App() {
         />
 
         <Route path='/login'
-          element={ <Login /> }
+          element={ <ProtectedRoute onlyUnAuth={ true } component={ <Login /> } /> }
         />
 
         <Route path='/register'
@@ -71,13 +72,13 @@ function App() {
           element={ <ResetPassword /> }
         />
 
-        <Route path='/profile'
-          element={ <Profile /> }
-        />
+        <Route path='/profile' element={ <Profile /> } >
+          <Route path='orders' element={ <Orders /> } />
+        </Route>
 
-        <Route path='/profile/orders'
+        {/* <Route path='/profile/orders'
           element={ <OrdersList /> }
-        />
+        /> */}
 
         <Route path='/ingredients/:id'
           // element={ <IngredientPage /> }

@@ -4,8 +4,13 @@ import ProfileNavigation from '../../components/profile-navigation/profile-navig
 import { useForm } from '../../hooks/useForm';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Outlet, useLocation } from 'react-router-dom';
 
 function Profile() {
+    const location = useLocation();
+    const isProfilePage = location.pathname === '/profile';
+    const isOrdersPage = location.pathname === '/profile/orders';
+
     const { user } = useSelector(store => ({
         user: store.login.user
     }));
@@ -17,38 +22,42 @@ function Profile() {
     return(
         <section className={ `${styles.section} pt-30` }>
             <ProfileNavigation />
-            <form 
-                className={ styles.form }
-                disabled={ isFormActive ? true : false }
-            >
-                <Input 
-                    type={'text'}
-                    name={'name'}
-                    placeholder={'Имя'}
-                    value={ user ? user.name : 'Загрузка данных' }
-                    onChange={ handleChange } 
-                    icon={'EditIcon'}
-                    // disabled={ isFormActive ? true : false }
-                />
-                <Input 
-                    type={'email'}
-                    name={'email'}
-                    placeholder={'Логин'}
-                    value={ user ? user.name : 'Загрузка данных' }
-                    onChange={ handleChange }
-                    icon={'EditIcon'}
-                    // disabled={ isFormActive ? true : false }
-                />
-                <Input 
-                    type={'password'}
-                    name={'password'}
-                    placeholder={'Пароль'}
-                    value={'Заглушка'}
-                    onChange={ handleChange }
-                    icon={'EditIcon'}
-                    // disabled={ isFormActive ? true : false }
-                />
-            </form>
+            {   isProfilePage ?
+                (<form 
+                    className={ styles.form }
+                    disabled={ isFormActive ? true : false }
+                >
+                    <Input 
+                        type={'text'}
+                        name={'name'}
+                        placeholder={'Имя'}
+                        value={ user ? user.name : 'Загрузка данных' }
+                        onChange={ handleChange } 
+                        icon={'EditIcon'}
+                        // disabled={ isFormActive ? true : false }
+                    />
+                    <Input 
+                        type={'email'}
+                        name={'email'}
+                        placeholder={'Логин'}
+                        value={ user ? user.name : 'Загрузка данных' }
+                        onChange={ handleChange }
+                        icon={'EditIcon'}
+                        // disabled={ isFormActive ? true : false }
+                    />
+                    <Input 
+                        type={'password'}
+                        name={'password'}
+                        placeholder={'Пароль'}
+                        value={'Заглушка'}
+                        onChange={ handleChange }
+                        icon={'EditIcon'}
+                        // disabled={ isFormActive ? true : false }
+                    />
+                </form>) 
+                : isOrdersPage &&
+                <Outlet/>
+            }
         </section>
     )
 };
