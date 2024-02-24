@@ -5,12 +5,12 @@ function ProtectedRoute({ onlyUnAuth = false, component }) {
     const location = useLocation();
 
     const { isAuthChecked, user } = useSelector(store => ({
-        isAuthChecked: store.login.isAuthChecked,
-        user: store.login.user
+        isAuthChecked: store.userData.isAuthChecked,
+        user: store.userData.user
     }));
 
     if(!isAuthChecked) {
-        return null
+        return <Navigate to='/login' state={{ from: location }} />
     };
 
     if(onlyUnAuth && user) {

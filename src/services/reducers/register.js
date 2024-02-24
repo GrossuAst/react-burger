@@ -3,10 +3,6 @@ import { REGISTER_REQUEST, REGISTER_REQUEST_FAILED, REGISTER_REQUEST_SUCCESS } f
 const initialState = {
     feedRequest: false,
     feedFailed: false,
-    userData: {
-        email: '',
-        name: ''    
-    },
 };
 
 export const registerReducer = (state = initialState, action) => {
@@ -21,16 +17,11 @@ export const registerReducer = (state = initialState, action) => {
         case REGISTER_REQUEST_SUCCESS: {
             return {
                 ...state,
-                userData: {
-                    email: action.payload.user.email,
-                    name: action.payload.user.name
-                },
                 feedRequest: false,
                 feedFailed: false
             }
         }
         case REGISTER_REQUEST_FAILED: {
-            console.log(action)
             return {
                 ...state,
                 feedRequest: false,

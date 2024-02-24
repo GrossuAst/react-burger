@@ -1,9 +1,10 @@
 import { login, getUserData } from "../../utils/auth-api";
 
+import { UPDATE_USER, CHECK_AUTH } from "./user";
+
 export const GET_USER_DATA = 'GET_USER_DATA';
 export const GET_USER_DATA_SUCCESS = 'GET_USER_DATA_SUCCESS';
 export const GET_USER_DATA_FAILED = 'GET_USER_DATA_FAILED';
-export const IS_AUTH_CHECKED = 'IS_AUTH_CHECKED';
 
 export function loginUser(data, hanler) {
     return function(dispatch) {
@@ -15,8 +16,11 @@ export function loginUser(data, hanler) {
                 if(res && res.success) {
                     dispatch({
                         type: GET_USER_DATA_SUCCESS,
-                        payload: res
                     });
+                    dispatch({
+                        type: UPDATE_USER,
+                        payload: res.user
+                    })
                     localStorage.setItem('accessToken', res.accessToken);
                     localStorage.setItem('refreshToken', res.refreshToken);
                     hanler();
@@ -26,6 +30,12 @@ export function loginUser(data, hanler) {
             .catch((err) => {
                 dispatch({
                     type: GET_USER_DATA_FAILED
+                })
+            })
+            .finally(() => {
+                dispatch({
+                    type: CHECK_AUTH,
+                    payload: true
                 })
             })
     }
@@ -40,9 +50,9 @@ export function checkUserAuth() {
             getUserData()
                 .then((res) => {
                     if(res && res.success) {
+                        console.log(res)
                         dispatch({
                             type: GET_USER_DATA_SUCCESS,
-                            payload: res
                         })
                     }
                 })
@@ -53,7 +63,7 @@ export function checkUserAuth() {
                 })
                 .finally(() => {
                     dispatch({
-                        type: IS_AUTH_CHECKED,
+                        type: CHECK_AUTH,
                         payload: true
                     })
                 })

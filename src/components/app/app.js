@@ -57,11 +57,13 @@ function App() {
         />
 
         <Route path='/login'
-          element={ <ProtectedRoute onlyUnAuth={ true } component={ <Login /> } /> }
+          element={ <Login /> }
+          // element={ <ProtectedRoute onlyUnAuth={ true } component={ <Login /> } /> }
         />
 
         <Route path='/register'
-          element={ <Register /> }
+          element={ <ProtectedRoute onlyUnAuth={ true } component={ <Register /> } /> } 
+          // element={ <Register /> }
         />
 
         <Route path='/forgot-password'
@@ -72,13 +74,9 @@ function App() {
           element={ <ResetPassword /> }
         />
 
-        <Route path='/profile' element={ <Profile /> } >
+        <Route path='/profile' element={ <ProtectedRoute onlyUnAuth={ false } component={ <Profile /> } /> } >
           <Route path='orders' element={ <Orders /> } />
         </Route>
-
-        {/* <Route path='/profile/orders'
-          element={ <OrdersList /> }
-        /> */}
 
         <Route path='/ingredients/:id'
           // element={ <IngredientPage /> }

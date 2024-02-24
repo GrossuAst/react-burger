@@ -12,7 +12,7 @@ function Profile() {
     const isOrdersPage = location.pathname === '/profile/orders';
 
     const { user } = useSelector(store => ({
-        user: store.login.user
+        user: store.userData.user
     }));
 
     const [isFormActive, setIsFormActive] = useState(true);
