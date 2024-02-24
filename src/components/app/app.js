@@ -4,11 +4,8 @@ import ProtectedRoute from '../protected-route/protected-route';
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { getInitialData } from "../../services/actions/burger-ingredients";
 import { clearModalData } from "../../services/actions/current-ingredient";
 import { checkUserAuth } from '../../services/actions/login';
-
-import { fetchWithRefresh } from '../../utils/auth-api';
 
 import Home from '../../pages/home/home';
 import Register from '../../pages/register/register';
@@ -29,8 +26,9 @@ function App() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { currentIngredient } = useSelector(store => ({
+  const { currentIngredient, isAuthChecked } = useSelector(store => ({
     currentIngredient: store.currentIngredient,
+    isAuthChecked: store.userData.isAuthChecked
   }));
 
   useEffect(() => {
@@ -57,21 +55,19 @@ function App() {
         />
 
         <Route path='/login'
-          element={ <Login /> }
-          // element={ <ProtectedRoute onlyUnAuth={ true } component={ <Login /> } /> }
+          element={ <ProtectedRoute onlyUnAuth={ true } component={ <Login /> } /> }
         />
 
         <Route path='/register'
           element={ <ProtectedRoute onlyUnAuth={ true } component={ <Register /> } /> } 
-          // element={ <Register /> }
         />
 
         <Route path='/forgot-password'
-          element={ <ForgotPassword /> }
+          element={ <ProtectedRoute onlyUnAuth={ true } component={ <ForgotPassword /> } /> }
         />
 
         <Route path='/reset-password'
-          element={ <ResetPassword /> }
+          element={ <ProtectedRoute onlyUnAuth={ true } component={ <ResetPassword /> } /> }
         />
 
         <Route path='/profile' element={ <ProtectedRoute onlyUnAuth={ false } component={ <Profile /> } /> } >

@@ -50,10 +50,13 @@ export function checkUserAuth() {
             getUserData()
                 .then((res) => {
                     if(res && res.success) {
-                        console.log(res)
                         dispatch({
                             type: GET_USER_DATA_SUCCESS,
-                        })
+                        });
+                        dispatch({
+                            type: UPDATE_USER,
+                            payload: res.user
+                        });
                     }
                 })
                 .catch(() => {
