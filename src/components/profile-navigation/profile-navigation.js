@@ -1,22 +1,18 @@
 import styles from './profile-navigation.module.css';
 import { NavLink, useNavigate, Outlet } from "react-router-dom";
-import { logout } from '../../utils/auth-api';
+import { userLogout } from '../../services/actions/logout';
+import { useDispatch } from 'react-redux';
 
 function ProfileNavigation() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    function successfulHandler() {
+        navigate('/login');
+    };
+
     function handleLogut() {
-        logout()
-            .then((res) =>{
-                if(res && res.success) {
-                    localStorage.removeItem('refreshToken');
-                    localStorage.removeItem('accessToken');
-                    navigate('/login');
-                }
-            })
-            .catch((err) => {
-                
-            })
+        dispatch(userLogout(successfulHandler));
     };
 
     return (

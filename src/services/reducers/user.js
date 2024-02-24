@@ -1,4 +1,4 @@
-import { UPDATE_USER, CHECK_AUTH } from "../actions/user";
+import { UPDATE_USER, CHECK_AUTH, DELETE_USER_DATA } from "../actions/user";
 
 const initialState = {
     isAuthChecked: false,
@@ -11,6 +11,13 @@ export const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.payload
+            }
+        }
+        case(DELETE_USER_DATA): {
+            return {
+                ...state,
+                isAuthChecked: false,
+                user: null
             }
         }
         case(CHECK_AUTH): {

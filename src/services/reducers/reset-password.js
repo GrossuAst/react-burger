@@ -1,4 +1,4 @@
-import { LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILED } from "../actions/logout";
+import { RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILED } from "../actions/reset-password";
 
 const initialState = {
     feedRequest: false,
@@ -6,27 +6,28 @@ const initialState = {
     feedSuccess: false
 };
 
-export const logoutReducer = (state = initialState, action) => {
+export const resetPasswordReducer = (state = initialState, action) => {
     switch(action.type) {
-        case(LOGOUT): {
+        case(RESET_PASSWORD_REQUEST): {
             return {
                 ...state,
                 feedRequest: true
             }
         }
-        case(LOGOUT_SUCCESS): {
+        case(RESET_PASSWORD_SUCCESS): {
             return {
                 ...state,
+                feedRequest: false,
                 feedSuccess: true
             }
         }
-        case(LOGOUT_FAILED): {
+        case(RESET_PASSWORD_FAILED): {
             return {
+                ...state,
                 feedFailed: true
             }
         }
-        default: {
+        default: 
             return state
-        }
     }
 };

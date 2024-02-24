@@ -19,9 +19,10 @@ function BurgerConstructor({
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const { ingredientsInConstructor, orderDetails } = useSelector(store => ({
+  const { ingredientsInConstructor, orderDetails, user } = useSelector(store => ({
     ingredientsInConstructor: store.ingredientsInConstructor,
-    orderDetails: store.orderDetails.orderDetails
+    orderDetails: store.orderDetails.orderDetails,
+    user: store.userData.user
   }));
 
   const topElement = ingredientsInConstructor.bun;
@@ -64,8 +65,11 @@ function BurgerConstructor({
   });
 
   function handleOrderButtonClick() {
-    dispatch(createOrder(allIngredients));
-    handleOpenModal();
+    if(user) {
+      dispatch(createOrder(allIngredients));
+      handleOpenModal();  
+    }
+    return
   };
 
   // вычисление стоимости
@@ -159,7 +163,7 @@ function BurgerConstructor({
         </div>
         <Button htmlType="button" type="primary" size="large" 
           onClick={ handleOrderButtonClick }
-          disabled={ allIngredients.includes(null) }
+          disabled={ allIngredients.includes(null) || !user }
         >
           Оформить заказ
         </Button>

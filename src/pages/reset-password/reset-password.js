@@ -4,8 +4,12 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { handleResetPassword } from '../../services/actions/reset-password';
+import { useDispatch } from 'react-redux';
 
 function ResetPassword() {
+    const dispatch = useDispatch();
+
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     function handleIconClick() {
@@ -16,17 +20,15 @@ function ResetPassword() {
 
     const { values, handleChange, setValues } = useForm({password: '', code: ''});
 
+    function successfulHanler() {
+        setValues({password: '', code: ''});
+        navigate('/login');
+    }
+
     function handleSubmitForm(e) {
         e.preventDefault();
         if(values.password && values.code) {
-            resetPassword(values)
-                .then((res) => {
-                    setValues({password: '', code: ''});
-                    navigate('/login');
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
+            dispatch(handleResetPassword(values, successfulHanler));
         }
         return
     };

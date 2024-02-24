@@ -3,26 +3,24 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { restorePassword } from '../../utils/auth-api';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { forgotPasswordRequest } from '../../services/actions/forgot-password';
+import { useDispatch } from 'react-redux';
 
 function ForgotPassword() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const { values, handleChange, setValues } = useForm({email: ''});
 
+    function successfulHandler() {
+        setValues({email: ''});
+        navigate('/reset-password');
+    };
+
     function handleSubmitForm(e) {
         e.preventDefault();
         if(values.email) {
-            restorePassword(values.email)
-                .then((res) => {
-                    if(res.success) {
-                        setValues({email: ''});
-                        navigate('/reset-password');
-                    };
-                    return
-                })
-                .catch((err) => {
-                    console.log(err);
-                })    
+            dispatch(forgotPasswordRequest(values.email, successfulHandler));
         }
         return
     };
