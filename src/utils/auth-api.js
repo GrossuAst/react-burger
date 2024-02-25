@@ -11,6 +11,22 @@ export function getUserData() {
         })
 };
 
+export function editProfile(data) {
+    const headers = apiConfig.headers;
+    headers.authorization = localStorage.getItem("accessToken");
+    return fetchWithRefresh(`${apiConfig.url + 'auth/user'}`, {
+        method: 'PATCH',
+        headers: headers,
+        body: JSON.stringify(data)
+    })
+        .then((res) => {
+            return res
+        })
+        .catch((err) =>{
+            console.log(err);
+        })
+};
+
 export function login(data) {
     return fetch(`${apiConfig.url + 'auth/login'}`, {
         method: 'POST',

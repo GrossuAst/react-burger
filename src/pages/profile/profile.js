@@ -1,12 +1,15 @@
 import styles from './profile.module.css';
-import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import ProfileNavigation from '../../components/profile-navigation/profile-navigation';
 import { useForm } from '../../hooks/useForm';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Outlet, useLocation } from 'react-router-dom';
+import { updateUser } from '../../services/actions/edit-profile';
 
 function Profile() {
+    const dispatch = useDispatch();
+
     const location = useLocation();
     const isProfilePage = location.pathname === '/profile';
     const isOrdersPage = location.pathname === '/profile/orders';
@@ -15,45 +18,95 @@ function Profile() {
         user: store.userData.user
     }));
 
-    const [isFormActive, setIsFormActive] = useState(true);
+    const [isNameInputActive, setNameInputActive] = useState(false);
+    const [isEmailInputActive, setEmailInputActive] = useState(false);
+    const [isPassInputActive, setPassInputActive] = useState(false);
 
-    const { values, handleChange, setValues } = useForm();
+    const { values, handleChange, setValues } = useForm({ name: user.name, email: user.email, password: '' });
+
+    console.log(values)
+
+    function handleEditForm(formName) {
+        formName === 'name' && setNameInputActive(true);
+        formName === 'email' && setEmailInputActive(true);
+        formName === 'password' && setPassInputActive(true);
+    };
+
+    function handleCancellationButtonClick() {
+        setNameInputActive(false);
+        setEmailInputActive(false);
+        setValues({ name: user.name, email: user.email })
+    };
+
+    function checkDisabled() {
+        return user.email === values.email && user.name === values.name && values.password === 'qwerty' ? true : false
+    };
+
+    function handleSuccessful() {
+        setNameInputActive(false)
+        setEmailInputActive(false)
+        setPassInputActive(false);
+    };
+
+    function handleSubmitForm(e) {
+        e.preventDefault();
+        dispatch(updateUser(values, handleSuccessful));
+    };
 
     return(
         <section className={ `${styles.section} pt-30` }>
             <ProfileNavigation />
             {   isProfilePage ?
-                (<form 
-                    className={ styles.form }
-                    disabled={ isFormActive ? true : false }
+                (<form className={ styles.form }
+                    onSubmit={ handleSubmitForm }
                 >
                     <Input 
                         type={'text'}
                         name={'name'}
                         placeholder={'Имя'}
-                        value={ user ? user.name : 'Загрузка данных' }
-                        onChange={ handleChange } 
+                        value={ user && !isNameInputActive ? user.name : values.name }
+                        onChange={ handleChange }
                         icon={'EditIcon'}
-                        // disabled={ isFormActive ? true : false }
+                        onIconClick={ () => handleEditForm('name') }
+                        disabled={ !isNameInputActive ? true : false }
                     />
                     <Input 
                         type={'email'}
                         name={'email'}
                         placeholder={'Логин'}
-                        value={ user ? user.name : 'Загрузка данных' }
-                        onChange={ handleChange }
+                        value={ user && !isEmailInputActive ? user.email : values.email }
                         icon={'EditIcon'}
-                        // disabled={ isFormActive ? true : false }
+                        onChange={ handleChange }
+                        onIconClick={ () => handleEditForm('email') }
+                        disabled={ !isEmailInputActive ? true : false }
                     />
                     <Input 
                         type={'password'}
                         name={'password'}
-                        placeholder={'Пароль'}
-                        value={'Заглушка'}
-                        onChange={ handleChange }
                         icon={'EditIcon'}
-                        // disabled={ isFormActive ? true : false }
+                        placeholder={'Пароль'}
+                        value={ isPassInputActive ? values.password : '11111' }
+                        onChange={ () => handleChange('password') }
+                        onIconClick={ () => handleEditForm('password') }
+                        disabled={ !isPassInputActive ? true : false }
                     />
+                    { (isNameInputActive || isEmailInputActive || isPassInputActive) && (
+                        <div className={ styles.buttonsPlace }>
+                            <Button
+                                htmlType={ 'button' }
+                                onClick={ handleCancellationButtonClick }
+                            >
+                                Отмена
+                            </Button >
+                            <Button
+                                htmlType={ 'submit' }
+                                onSubmit={ handleSubmitForm }
+                                disabled={ checkDisabled() }
+                            >
+                                Сохранить
+                            </Button >  
+                        </div>
+                    ) }
                 </form>) 
                 : isOrdersPage &&
                 <Outlet/>

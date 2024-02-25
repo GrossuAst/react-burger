@@ -9,10 +9,6 @@ function ProtectedRoute({ onlyUnAuth = false, component }) {
         user: store.userData.user
     }));
 
-    // if(!isAuthChecked) {
-        // return <Navigate to='/login' state={{ from: location }} />
-    // };
-
     if(onlyUnAuth && user) {
         const { from } = location.state || { from: {pathname: '/'} };
         return <Navigate to={ from } />
