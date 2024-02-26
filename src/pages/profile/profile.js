@@ -22,9 +22,15 @@ function Profile() {
     const [isEmailInputActive, setEmailInputActive] = useState(false);
     const [isPassInputActive, setPassInputActive] = useState(false);
 
-    const { values, handleChange, setValues } = useForm({ name: user.name, email: user.email, password: '' });
+    const { values, handleChange, setValues } = useForm({ name: user.name, email: user.email, password: 'qwerty' });
 
-    console.log(values)
+    const valuesToSend = () => {
+        const data = {};
+        (values.name !== user.name) && (data.name = values.name);
+        (values.email !== user.email) && (data.email = values.email);
+        (values.password !== 'qwerty') && (data.password = values.password);
+        return data;
+    };
 
     function handleEditForm(formName) {
         formName === 'name' && setNameInputActive(true);
@@ -50,7 +56,7 @@ function Profile() {
 
     function handleSubmitForm(e) {
         e.preventDefault();
-        dispatch(updateUser(values, handleSuccessful));
+        dispatch(updateUser(valuesToSend(), handleSuccessful));
     };
 
     return(
@@ -85,8 +91,8 @@ function Profile() {
                         name={'password'}
                         icon={'EditIcon'}
                         placeholder={'Пароль'}
-                        value={ isPassInputActive ? values.password : '11111' }
-                        onChange={ () => handleChange('password') }
+                        value={ isPassInputActive ? values.password : 'qwerty' }
+                        onChange={ handleChange }
                         onIconClick={ () => handleEditForm('password') }
                         disabled={ !isPassInputActive ? true : false }
                     />
