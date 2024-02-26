@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useDrop } from "react-dnd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector} from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { createOrder } from "../../services/actions/order-ingredients";
 
@@ -16,6 +17,7 @@ function BurgerConstructor({
   handleOpenModal,
   onDropHandler,
 }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -68,6 +70,8 @@ function BurgerConstructor({
     if(user) {
       dispatch(createOrder(allIngredients));
       handleOpenModal();  
+    } else if(!user) {
+      navigate('/login');
     }
     return
   };
@@ -163,7 +167,7 @@ function BurgerConstructor({
         </div>
         <Button htmlType="button" type="primary" size="large" 
           onClick={ handleOrderButtonClick }
-          disabled={ allIngredients.includes(null) || !user }
+          disabled={ allIngredients.includes(null) }
         >
           Оформить заказ
         </Button>
