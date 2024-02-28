@@ -1,11 +1,12 @@
-import { Routes, Route } from 'react-router-dom';
-import ProtectedRoute from '../protected-route/protected-route';
-
+import { Routes, Route, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { clearModalData } from "../../services/actions/current-ingredient";
 import { checkUserAuth } from '../../services/actions/login';
+import { getInitialData } from '../../services/actions/burger-ingredients';
+
+import { ACTIVE_INGREDIENT } from '../../services/actions/current-ingredient';
 
 import Home from '../../pages/home/home';
 import Register from '../../pages/register/register';
@@ -15,21 +16,45 @@ import Orders from '../../pages/orders/orders';
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import ResetPassword from '../../pages/reset-password/reset-password';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import IngredientPage from '../../pages/ingredient-page/ingredient-page';
 
+import ProtectedRoute from '../protected-route/protected-route';
 import AppHeader from "../app-header/app-header";
 import Modal from "../modal-window/modal/modal";
 import IngredientDetails from "../modal-window/ingredient-details/ingredient-details";
 import OrderDetails from "../modal-window/order-details/order-details";
 
 function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const state = location.state;
+  const { id } = useParams();
   const dispatch = useDispatch();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { currentIngredient, isAuthChecked } = useSelector(store => ({
+  const { currentIngredient, ingredients } = useSelector(store => ({
     currentIngredient: store.currentIngredient,
-    isAuthChecked: store.userData.isAuthChecked
+    ingredients: store.ingredients.ingredients
   }));
+
+  useEffect(() => {
+    if(ingredients.length === 0) {
+        dispatch(getInitialData());
+    }
+  }, []);
+
+  function checkCurrentIngredient(id) {
+    if(ingredients) {
+      const element = ingredients.find((i) => i._id === id);
+      element && dispatch({
+        type: ACTIVE_INGREDIENT,
+        payload: { data: element }
+      });
+      element && ingredients && setIsModalOpen(true);
+    }
+  };
 
   useEffect(() => {
     dispatch(checkUserAuth());
@@ -38,21 +63,25 @@ function App() {
   function handleCloseModal() {
     setIsModalOpen(false);
     dispatch(clearModalData());
+    navigate('/');
   };
 
   function handleOpenModal() {
     setIsModalOpen(true);
   };
 
+  console.log(currentIngredient.currentIngredient)
   return (
     <>
       <AppHeader />
 
-      <Routes>
+      <Routes location={ state?.backgroundLocation || location } >
 
         <Route path='/'
           element={ <Home handleOpenModal={ handleOpenModal } /> }
         />
+
+        <Route path='/ingredients/:id' element={ <IngredientPage /> } />
 
         <Route path='/login'
           element={ <ProtectedRoute onlyUnAuth={ true } component={ <Login /> } /> }
@@ -74,23 +103,37 @@ function App() {
           <Route path='orders' element={ <Orders /> } />
         </Route>
 
-        <Route path='/ingredients/:id'
-          // element={ <IngredientPage /> }
-        />
-
         <Route path='*'
           element={ <NotFoundPage /> }
         />
 
       </Routes>
 
+      {state?.backgroundLocation &&  (
+        <Routes>
+          <Route
+            path='/ingredients/:id'
+            element={ 
+              <Modal
+                isModalOpen={ isModalOpen } 
+                handleCloseModal={ handleCloseModal }
+                checkCurrentIngredient={ checkCurrentIngredient }
+              >
+                { currentIngredient.currentIngredient && <IngredientDetails /> }
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+
       <Modal
         isModalOpen={ isModalOpen }
         handleCloseModal={ handleCloseModal }
         currentIngredient={ currentIngredient }
+        checkCurrentIngredient={ checkCurrentIngredient }
       >
         {
-          currentIngredient.currentIngredient ? <IngredientDetails /> : <OrderDetails />
+          !currentIngredient.currentIngredient && <OrderDetails />
         }
       </Modal>
 

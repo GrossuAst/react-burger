@@ -2,6 +2,8 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 
+import { Link, useLocation } from "react-router-dom";
+
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import IngredientCard from "./ingredient-card/ingredient-card";
@@ -11,6 +13,7 @@ import stylesBurgerIngredients from './burger-ingredients.module.css';
 function BurgerIngredients({
     handleOpenModal
 }) {
+    const location = useLocation();
     const [current, setCurrent] = useState('buns');
     const bunsRef = useRef();
     const mainsRef = useRef();
@@ -57,13 +60,18 @@ function BurgerIngredients({
                         {
                             buns.map((i) => (
                                 <li key={ i._id } className={ stylesBurgerIngredients.listItem }>
-                                    <IngredientCard
-                                        cardData={ i }
-                                        name={ i.name }
-                                        image={ i.image }
-                                        price={ i.price }
-                                        handleOpenModal={ handleOpenModal }
-                                    />
+                                    <Link className={ stylesBurgerIngredients.link } 
+                                        to={`/ingredients/${i._id}`}
+                                        state={{ backgroundLocation: location }}
+                                    >
+                                        <IngredientCard
+                                            cardData={ i }
+                                            name={ i.name }
+                                            image={ i.image }
+                                            price={ i.price }
+                                            handleOpenModal={ handleOpenModal }
+                                        />
+                                    </Link>
                                 </li>    
                             ))
                         }
@@ -73,13 +81,18 @@ function BurgerIngredients({
                         {
                             sauces.map((i) => (
                                 <li key={ i._id } className={ stylesBurgerIngredients.listItem }>
-                                    <IngredientCard 
-                                        cardData={ i }
-                                        name={ i.name }
-                                        image={ i.image }
-                                        price={ i.price }
-                                        handleOpenModal={ handleOpenModal }
-                                    />
+                                    <Link className={ stylesBurgerIngredients.link }
+                                        to={`/ingredients/${i._id}`}
+                                        state={{ backgroundLocation: location }}
+                                    >
+                                        <IngredientCard 
+                                            cardData={ i }
+                                            name={ i.name }
+                                            image={ i.image }
+                                            price={ i.price }
+                                            handleOpenModal={ handleOpenModal }
+                                        />
+                                    </Link>
                                 </li>    
                             ))
                         }
@@ -89,13 +102,18 @@ function BurgerIngredients({
                         {
                             mains.map((i) => (
                                 <li key={ i._id } className={ stylesBurgerIngredients.listItem }>
-                                    <IngredientCard 
-                                        cardData={ i }
-                                        name={ i.name }
-                                        image={ i.image }
-                                        price={ i.price }
-                                        handleOpenModal={ handleOpenModal }
-                                    />
+                                    <Link className={ stylesBurgerIngredients.link }
+                                        to={`/ingredients/${i._id}`}
+                                        state={{ backgroundLocation: location }}
+                                    >
+                                        <IngredientCard 
+                                            cardData={ i }
+                                            name={ i.name }
+                                            image={ i.image }
+                                            price={ i.price }
+                                            handleOpenModal={ handleOpenModal }
+                                        />
+                                    </Link>
                                 </li>    
                             ))
                         }

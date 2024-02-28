@@ -16,12 +16,6 @@ function Home({ handleOpenModal }) {
         feedFailed: store.ingredients.feedFailed,
     }));
 
-    useEffect(() => {
-        if(ingredients.ingredients.length === 0) {
-            dispatch(getInitialData());
-        }
-    }, []);
-
     return (
         feedRequest ? <Preloader /> : feedFailed ? <ErrorMessage /> :
         ingredients.ingredients.length > 0 &&

@@ -1,12 +1,10 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import ReactDOM from "react-dom";
 import PropTypes from 'prop-types';
-
 import stylesModal from './modal.module.css';
-import { ingredientStructure } from "../../../utils/prop-types";
-
 import ModalOverlay from "../modal-overlay/modal-overlay";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 const modalRoot = document.querySelector('#modal-root');
 
@@ -14,11 +12,24 @@ function Modal({
     children,
     isModalOpen,
     handleCloseModal,
-    currentIngredient
+    checkCurrentIngredient
 }) {
+    const navigate = useNavigate();
+    const { id } = useParams();
+
+    const { currentIngredient, ingredients } = useSelector(store => ({
+        currentIngredient: store.currentIngredient,
+        ingredients: store.ingredients.ingredients
+    }));
+
+    useEffect(() => {
+        checkCurrentIngredient(id);
+    }, [ingredients]); 
+
     function handleEscPress(e) {
         if(e.key === 'Escape') {
             handleCloseModal();
+            navigate('/');
         };
         return
     };

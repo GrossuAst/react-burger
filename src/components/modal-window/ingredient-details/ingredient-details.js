@@ -1,18 +1,17 @@
 import { useSelector } from 'react-redux';
-
 import stylesIngredientDetails from './ingredient-details.module.css';
 
 function IngredientDetails() {
     const { currentIngredient } = useSelector(store => ({
-        currentIngredient: store.currentIngredient
+        currentIngredient: store.currentIngredient.currentIngredient
     }));
 
-    const { name, image, calories, carbohydrates, fat, proteins, } = currentIngredient.currentIngredient;
+    const { name, image, calories, carbohydrates, fat, proteins, } = currentIngredient || {};    
 
     return (
         <article className={ ` ${stylesIngredientDetails.ingredientInfo}` }>
             <img src={ image } alt={ name } className={ stylesIngredientDetails.image } />
-            <h2 className={ `mt-6 ${stylesIngredientDetails.title}` }>{ name }</h2>
+            <h2 className={ `mt-6 ${stylesIngredientDetails.title}` }>{ name && name }</h2>
             <ul className={ `mt-9 ${stylesIngredientDetails.calories}` }>
 
                 <li className={ stylesIngredientDetails.item }>

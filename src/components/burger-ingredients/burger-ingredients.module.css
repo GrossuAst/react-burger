@@ -29,3 +29,8 @@
 .listItem {
     max-width: max-content;
 }
+
+.link {
+    text-decoration-line: none;
+    color: white;
+}
