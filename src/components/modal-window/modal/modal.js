@@ -12,19 +12,22 @@ function Modal({
     children,
     isModalOpen,
     handleCloseModal,
-    checkCurrentIngredient
-}) {
+    currentIngredient,
+    ingredientInModal,
+    getIngredientById
+}) {    
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const { currentIngredient, ingredients } = useSelector(store => ({
-        currentIngredient: store.currentIngredient,
+    const { ingredients } = useSelector(store => ({
         ingredients: store.ingredients.ingredients
     }));
 
     useEffect(() => {
-        checkCurrentIngredient(id);
-    }, [ingredients]); 
+        if(id && ingredients) {
+            getIngredientById(id);    
+        }
+    }, [ingredients]);
 
     function handleEscPress(e) {
         if(e.key === 'Escape') {
@@ -50,9 +53,13 @@ function Modal({
                 >
                     <div className={ `pt-10 ${stylesModal.container}` }>
                         <div className={ `pr-10 ${stylesModal.header}` }>
-                            { currentIngredient.currentIngredient && (
+                            { currentIngredient.currentIngredient ? (
                                 <p className={ `pl-10 pt-1 ${stylesModal.headerText}` }>Детали ингредиента</p>
-                            ) }
+                            )   : ingredientInModal && (
+                                <p className={ `pl-10 pt-1 ${stylesModal.headerText}` }>Детали ингредиента</p>
+                            )
+                            }
+                            
                             <button
                                 className={ `${stylesModal.closeButton}` }
                                 onClick={ handleCloseModal }

@@ -27,12 +27,11 @@ import OrderDetails from "../modal-window/order-details/order-details";
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
-
   const state = location.state;
-  const { id } = useParams();
   const dispatch = useDispatch();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [ingredientInModal, setIngredientInModal] = useState(null);
 
   const { currentIngredient, ingredients } = useSelector(store => ({
     currentIngredient: store.currentIngredient,
@@ -45,14 +44,11 @@ function App() {
     }
   }, []);
 
-  function checkCurrentIngredient(id) {
+  function getIngredientById(id) {
     if(ingredients) {
-      const element = ingredients.find((i) => i._id === id);
-      element && dispatch({
-        type: ACTIVE_INGREDIENT,
-        payload: { data: element }
-      });
-      element && ingredients && setIsModalOpen(true);
+      const element = ingredients.find((item) => item._id === id);
+      setIngredientInModal(element);
+      element && setIsModalOpen(true);
     }
   };
 
@@ -63,6 +59,7 @@ function App() {
   function handleCloseModal() {
     setIsModalOpen(false);
     dispatch(clearModalData());
+    ingredientInModal && setIngredientInModal(null);
     navigate('/');
   };
 
@@ -70,7 +67,6 @@ function App() {
     setIsModalOpen(true);
   };
 
-  console.log(currentIngredient.currentIngredient)
   return (
     <>
       <AppHeader />
@@ -109,7 +105,19 @@ function App() {
 
       </Routes>
 
-      {state?.backgroundLocation &&  (
+      <Modal
+        isModalOpen={ isModalOpen }
+        handleCloseModal={ handleCloseModal }
+        getIngredientById={ getIngredientById }
+        currentIngredient={ currentIngredient }
+        ingredientInModal={ ingredientInModal }
+      >
+        {
+          !currentIngredient.currentIngredient && !ingredientInModal && <OrderDetails />
+        }
+      </Modal>
+
+      {state?.backgroundLocation && (
         <Routes>
           <Route
             path='/ingredients/:id'
@@ -117,25 +125,20 @@ function App() {
               <Modal
                 isModalOpen={ isModalOpen } 
                 handleCloseModal={ handleCloseModal }
-                checkCurrentIngredient={ checkCurrentIngredient }
+                getIngredientById={ getIngredientById }
+                currentIngredient={ currentIngredient }
+                ingredientInModal={ ingredientInModal }
               >
-                { currentIngredient.currentIngredient && <IngredientDetails /> }
+                { currentIngredient.currentIngredient ? <IngredientDetails />
+                : ingredientInModal && ingredients && <IngredientDetails ingredientInModal={ ingredientInModal }/>
+                }
               </Modal>
             }
           />
         </Routes>
       )}
 
-      <Modal
-        isModalOpen={ isModalOpen }
-        handleCloseModal={ handleCloseModal }
-        currentIngredient={ currentIngredient }
-        checkCurrentIngredient={ checkCurrentIngredient }
-      >
-        {
-          !currentIngredient.currentIngredient && <OrderDetails />
-        }
-      </Modal>
+
 
     </>
   );
