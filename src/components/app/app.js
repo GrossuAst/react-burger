@@ -6,8 +6,6 @@ import { clearModalData } from "../../services/actions/current-ingredient";
 import { checkUserAuth } from '../../services/actions/login';
 import { getInitialData } from '../../services/actions/burger-ingredients';
 
-import { ACTIVE_INGREDIENT } from '../../services/actions/current-ingredient';
-
 import Home from '../../pages/home/home';
 import Register from '../../pages/register/register';
 import Login from '../../pages/login/login';
@@ -41,14 +39,14 @@ function App() {
   useEffect(() => {
     if(ingredients.length === 0) {
         dispatch(getInitialData());
-    }
+    };
   }, []);
 
   function getIngredientById(id) {
     if(ingredients) {
       const element = ingredients.find((item) => item._id === id);
       setIngredientInModal(element);
-      element && setIsModalOpen(true);
+      element && state?.backgroundLocation && setIsModalOpen(true);
     }
   };
 
@@ -77,7 +75,7 @@ function App() {
           element={ <Home handleOpenModal={ handleOpenModal } /> }
         />
 
-        <Route path='/ingredients/:id' element={ <IngredientPage /> } />
+        <Route path='/ingredients/:id' element={ <IngredientPage getIngredientById={ getIngredientById }/> } />
 
         <Route path='/login'
           element={ <ProtectedRoute onlyUnAuth={ true } component={ <Login /> } /> }
@@ -109,8 +107,6 @@ function App() {
         isModalOpen={ isModalOpen }
         handleCloseModal={ handleCloseModal }
         getIngredientById={ getIngredientById }
-        currentIngredient={ currentIngredient }
-        ingredientInModal={ ingredientInModal }
       >
         {
           !currentIngredient.currentIngredient && !ingredientInModal && <OrderDetails />
@@ -119,27 +115,16 @@ function App() {
 
       {state?.backgroundLocation && (
         <Routes>
-          <Route
-            path='/ingredients/:id'
+          <Route path='/ingredients/:id'
             element={ 
-              <Modal
-                isModalOpen={ isModalOpen } 
-                handleCloseModal={ handleCloseModal }
-                getIngredientById={ getIngredientById }
-                currentIngredient={ currentIngredient }
-                ingredientInModal={ ingredientInModal }
-              >
-                { currentIngredient.currentIngredient ? <IngredientDetails />
-                : ingredientInModal && ingredients && <IngredientDetails ingredientInModal={ ingredientInModal }/>
-                }
+              <Modal isModalOpen={ isModalOpen } handleCloseModal={ handleCloseModal } >
+                <IngredientDetails getIngredientById={ getIngredientById } ingredientInModal={ ingredientInModal } />
               </Modal>
             }
           />
         </Routes>
       )}
-
-
-
+      
     </>
   );
 };

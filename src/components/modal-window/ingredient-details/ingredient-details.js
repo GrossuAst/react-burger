@@ -1,15 +1,25 @@
 import { useSelector } from 'react-redux';
 import stylesIngredientDetails from './ingredient-details.module.css';
+import { useParams } from 'react-router-dom';
+import { useEffect } from "react";
 
-function IngredientDetails({ ingredientInModal }) {
-    const { currentIngredient } = useSelector(store => ({
-        currentIngredient: store.currentIngredient.currentIngredient
+function IngredientDetails({ ingredientInModal, getIngredientById }) {
+    const { id } = useParams();
+
+    const { currentIngredient, ingredients } = useSelector(store => ({
+        currentIngredient: store.currentIngredient.currentIngredient,
+        ingredients: store.ingredients.ingredients
     }));
 
     const { name, image, calories, carbohydrates, fat, proteins } = currentIngredient || ingredientInModal || {};
 
+    useEffect(() => {
+        getIngredientById(id);
+    }, [ingredients]);
+
     return (
         <article className={ ` ${stylesIngredientDetails.ingredientInfo}` }>
+            <h1 className={ `pl-10 pt-1 ${stylesIngredientDetails.headerText}` }>Детали ингредиента</h1>
             <img src={ image } alt={ name } className={ stylesIngredientDetails.image } /> 
             <h2 className={ `mt-6 ${stylesIngredientDetails.title}` }>{ name }</h2>
             <ul className={ `mt-9 ${stylesIngredientDetails.calories}` }>

@@ -7,7 +7,7 @@ import { ACTIVE_INGREDIENT } from "../../services/actions/current-ingredient";
 
 import IngredientDetails from "../../components/modal-window/ingredient-details/ingredient-details";
 
-function IngredientPage({  }) {
+function IngredientPage({ getIngredientById }) {
     const dispatch = useDispatch();
 
     const { ingredients, currentIngredient } = useSelector(store => ({
@@ -35,8 +35,7 @@ function IngredientPage({  }) {
 
     return (
         <section className={ `mt-30 ${styles.ingredientPage}`}>
-            <h1 className={ `pl-10 pt-1 ${styles.title}` }>Детали Ингредиента</h1>
-            {currentIngredient ? <IngredientDetails /> : !currentIngredient && <PreloaderOrderDeatails /> }
+            {currentIngredient ? <IngredientDetails getIngredientById={ getIngredientById } /> : !currentIngredient && <PreloaderOrderDeatails /> }
         </section>
     )
 };
