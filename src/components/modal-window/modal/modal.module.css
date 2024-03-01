@@ -15,15 +15,6 @@
     justify-content: space-between;
 }
 
-.headerText {
-    margin: 0;
-    line-height: 52px;
-    font-family: 'JetBrains Mono';
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 700;
-}
-
 .closeButton {
     height: 24px;
     width: 24px;

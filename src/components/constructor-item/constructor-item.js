@@ -6,7 +6,7 @@ import { useRef, useCallback } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
 import { useDispatch } from "react-redux";
-import { removeIngredient, moveInvgredient } from "../../services/actions/burger-constructor";
+import { removeIngredient, moveInvgredient } from "../../services/burger-constructor/action";
 
 import styles from './constructor-item.module.css';
 

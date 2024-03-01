@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSTRUCTOR } from "../actions/burger-constructor";
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSTRUCTOR } from "./action";
 
 const initialState = {
     bun: null,

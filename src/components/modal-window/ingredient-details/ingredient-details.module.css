@@ -3,6 +3,15 @@
     flex-direction: column;
 }
 
+.headerText {
+    margin: 0;
+    line-height: 52px;
+    font-family: 'JetBrains Mono';
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+}
+
 .image {
     height: 240px;
     width: 480px;

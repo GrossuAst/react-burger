@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import { useDrop } from "react-dnd";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import { createOrder } from "../../services/actions/order-ingredients";
+import { createOrder } from "../../services/order-ingredients/action";
 
 import { ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorItem from "../constructor-item/constructor-item";
@@ -16,12 +17,15 @@ function BurgerConstructor({
   handleOpenModal,
   onDropHandler,
 }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const { ingredientsInConstructor } = useSelector(store => ({
-    ingredientsInConstructor: store.ingredientsInConstructor
-  }));
+  const { ingredientsInConstructor, orderDetails, user } = useSelector(store => ({
+    ingredientsInConstructor: store.ingredientsInConstructor,
+    orderDetails: store.orderDetails.orderDetails,
+    user: store.userData.user
+  }), shallowEqual);
 
   const topElement = ingredientsInConstructor.bun;
   const middleElements = ingredientsInConstructor.middleIngredients;
@@ -63,8 +67,13 @@ function BurgerConstructor({
   });
 
   function handleOrderButtonClick() {
-    dispatch(createOrder(allIngredients));
-    handleOpenModal();
+    if(user) {
+      dispatch(createOrder(allIngredients));
+      handleOpenModal();  
+    } else if(!user) {
+      navigate('/login');
+    }
+    return
   };
 
   // вычисление стоимости
@@ -156,7 +165,10 @@ function BurgerConstructor({
           <p className="text mr-2">{ totalPrice }</p>
           <img alt="валюта- алмаз" src={ diamond }></img>
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={ handleOrderButtonClick }>
+        <Button htmlType="button" type="primary" size="large" 
+          onClick={ handleOrderButtonClick }
+          disabled={ allIngredients.includes(null) }
+        >
           Оформить заказ
         </Button>
       </div>
