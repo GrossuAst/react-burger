@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import PropTypes from 'prop-types';
 import stylesModal from './modal.module.css';
 import ModalOverlay from "../modal-overlay/modal-overlay";
-import { useNavigate } from "react-router-dom";
 
 const modalRoot = document.querySelector('#modal-root');
 
@@ -12,12 +11,10 @@ function Modal({
     isModalOpen,
     handleCloseModal,
 }) {    
-    const navigate = useNavigate();
 
     function handleEscPress(e) {
         if(e.key === 'Escape') {
             handleCloseModal();
-            navigate('/');
         };
         return
     };

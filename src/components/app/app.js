@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
 import { clearModalData } from "../../services/actions/current-ingredient";
 import { checkUserAuth } from '../../services/actions/login';
@@ -34,7 +34,7 @@ function App() {
   const { currentIngredient, ingredients } = useSelector(store => ({
     currentIngredient: store.currentIngredient,
     ingredients: store.ingredients.ingredients
-  }));
+  }), shallowEqual);
 
   useEffect(() => {
     if(ingredients.length === 0) {

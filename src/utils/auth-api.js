@@ -6,9 +6,6 @@ export function getUserData() {
         .then((res) => {
             return res;
         })
-        .catch((err) => {
-            throw err;
-        })
 };
 
 export function editProfile(data) {
@@ -21,9 +18,6 @@ export function editProfile(data) {
     })
         .then((res) => {
             return res
-        })
-        .catch((err) =>{
-            console.log(err);
         })
 };
 

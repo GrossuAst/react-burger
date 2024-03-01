@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useDrop } from "react-dnd";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { createOrder } from "../../services/actions/order-ingredients";
@@ -25,7 +25,7 @@ function BurgerConstructor({
     ingredientsInConstructor: store.ingredientsInConstructor,
     orderDetails: store.orderDetails.orderDetails,
     user: store.userData.user
-  }));
+  }), shallowEqual);
 
   const topElement = ingredientsInConstructor.bun;
   const middleElements = ingredientsInConstructor.middleIngredients;

@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 
 import stylesOrderDetails from './order-details.module.css';
 import doneLogo from '../../../images/done.png';
@@ -9,7 +9,7 @@ function OrderDetails() {
     const { orderDetails, feedRequest } = useSelector(store => ({
         orderDetails: store.orderDetails,
         feedRequest: store.orderDetails.feedRequest
-    }));
+    }), shallowEqual);
 
     return (
         <article className={ `pb-30 ${stylesOrderDetails.info}` }>

@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import PropTypes from 'prop-types';
 
 import { Link, useLocation } from "react-router-dom";
@@ -22,7 +22,7 @@ function BurgerIngredients({
     const { ingredients } = useSelector(store => ({
         ingredients: store.ingredients,
         currentIngredient: store.currentIngredient,
-    }));
+    }), shallowEqual);
 
     const buns = useMemo(() => ingredients.ingredients.filter((e) => e.type === 'bun'), [ingredients.ingredients]);
     const mains = useMemo(() => ingredients.ingredients.filter((e) => e.type === 'main'), [ingredients.ingredients]);

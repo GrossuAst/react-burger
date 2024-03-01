@@ -1,7 +1,9 @@
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import stylesIngredientDetails from './ingredient-details.module.css';
 import { useParams } from 'react-router-dom';
 import { useEffect } from "react";
+import PropTypes from 'prop-types';
+import { ingredientStructure } from '../../../utils/prop-types';
 
 function IngredientDetails({ ingredientInModal, getIngredientById }) {
     const { id } = useParams();
@@ -9,7 +11,7 @@ function IngredientDetails({ ingredientInModal, getIngredientById }) {
     const { currentIngredient, ingredients } = useSelector(store => ({
         currentIngredient: store.currentIngredient.currentIngredient,
         ingredients: store.ingredients.ingredients
-    }));
+    }), shallowEqual);
 
     const { name, image, calories, carbohydrates, fat, proteins } = currentIngredient || ingredientInModal || {};
 
@@ -47,6 +49,11 @@ function IngredientDetails({ ingredientInModal, getIngredientById }) {
             </ul>
         </article>
     );
+};
+
+IngredientDetails.propTypes = {
+    getIngredientById: PropTypes.func.isRequired,
+    ingredientInModal: ingredientStructure
 };
 
 export default IngredientDetails;

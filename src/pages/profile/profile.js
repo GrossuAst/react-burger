@@ -3,7 +3,7 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import ProfileNavigation from '../../components/profile-navigation/profile-navigation';
 import { useForm } from '../../hooks/useForm';
 import { useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Outlet, useLocation } from 'react-router-dom';
 import { updateUser } from '../../services/actions/edit-profile';
 
@@ -16,7 +16,7 @@ function Profile() {
 
     const { user } = useSelector(store => ({
         user: store.userData.user
-    }));
+    }), shallowEqual);
 
     const [isNameInputActive, setNameInputActive] = useState(false);
     const [isEmailInputActive, setEmailInputActive] = useState(false);

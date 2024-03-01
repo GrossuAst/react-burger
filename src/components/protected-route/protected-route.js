@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 
 function ProtectedRoute({ onlyUnAuth = false, component }) {
@@ -7,7 +7,7 @@ function ProtectedRoute({ onlyUnAuth = false, component }) {
     const { user, didEmailEnter } = useSelector(store => ({
         user: store.userData.user,
         didEmailEnter: store.forgotPassword.feedSucces
-    }));
+    }), shallowEqual);
 
     if(!didEmailEnter && !user && onlyUnAuth && location.pathname === '/reset-password') {
         const { from } = location.state || { from: {pathname: '/'} };
