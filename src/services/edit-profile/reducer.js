@@ -1,4 +1,4 @@
-import { UPDATE_USER_DATA_REQUEST, UPDATE_USER_DATA_REQUEST_SUCCESS, UPDATE_USER_DATA_REQUEST_FAILED } from "../actions/edit-profile";
+import { UPDATE_USER_DATA_REQUEST, UPDATE_USER_DATA_REQUEST_SUCCESS, UPDATE_USER_DATA_REQUEST_FAILED } from "./action";
 
 const initialState = {
     feedRequest: false,

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { createOrder } from "../../services/actions/order-ingredients";
+import { createOrder } from "../../services/order-ingredients/action";
 
 import { ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorItem from "../constructor-item/constructor-item";

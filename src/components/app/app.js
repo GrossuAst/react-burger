@@ -2,9 +2,9 @@ import { Routes, Route, useLocation, useNavigate, useParams } from 'react-router
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
-import { clearModalData } from "../../services/actions/current-ingredient";
-import { checkUserAuth } from '../../services/actions/login';
-import { getInitialData } from '../../services/actions/burger-ingredients';
+import { clearModalData } from "../../services/current-ingredient/action";
+import { checkUserAuth } from '../../services/login/action';
+import { getInitialData } from '../../services/burger-ingredients/action';
 
 import Home from '../../pages/home/home';
 import Register from '../../pages/register/register';

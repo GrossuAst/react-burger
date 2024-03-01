@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { loginUser } from '../../services/actions/login';
+import { loginUser } from '../../services/login/action';
 import { useDispatch } from 'react-redux';
 
 function Login() {

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { restorePassword } from '../../utils/auth-api';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { forgotPasswordRequest } from '../../services/actions/forgot-password';
+import { forgotPasswordRequest } from '../../services/forgot-password/action';
 import { useDispatch } from 'react-redux';
 
 function ForgotPassword() {

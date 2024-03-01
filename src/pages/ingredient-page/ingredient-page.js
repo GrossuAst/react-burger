@@ -3,7 +3,7 @@ import PreloaderOrderDeatails from '../../components/ui/preloader-order-details/
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { ACTIVE_INGREDIENT } from "../../services/actions/current-ingredient";
+import { ACTIVE_INGREDIENT } from "../../services/current-ingredient/action";
 import PropTypes from 'prop-types';
 
 import IngredientDetails from "../../components/modal-window/ingredient-details/ingredient-details";

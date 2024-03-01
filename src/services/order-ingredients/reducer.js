@@ -1,4 +1,4 @@
-import { CREATE_ORDER, CREATE_ORDER_SUCCES, CREATE_ORDER_FAILED } from "../actions/order-ingredients";
+import { CREATE_ORDER, CREATE_ORDER_SUCCES, CREATE_ORDER_FAILED } from "./action";
 
 const initialState = {
     feedRequest: false,

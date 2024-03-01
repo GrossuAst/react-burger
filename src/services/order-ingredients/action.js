@@ -1,5 +1,5 @@
 import { sendOrder } from "../../utils/api";
-import { clearConstructor } from "./burger-constructor";
+import { clearConstructor } from "../burger-constructor/action";
 
 export const CREATE_ORDER = 'CREATE_ORDER';
 export const CREATE_ORDER_SUCCES = 'CREATE_ORDER_SUCCES';

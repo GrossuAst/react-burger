@@ -1,4 +1,4 @@
-import { GET_USER_DATA, GET_USER_DATA_SUCCESS, GET_USER_DATA_FAILED, IS_AUTH_CHECKED } from "../actions/login";
+import { GET_USER_DATA, GET_USER_DATA_SUCCESS, GET_USER_DATA_FAILED, IS_AUTH_CHECKED } from "./action";
 
 const initialState = {
     feedRequest: false,

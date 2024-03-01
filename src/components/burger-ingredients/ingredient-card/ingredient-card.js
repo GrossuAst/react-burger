@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { useEffect, useState } from 'react';
-import { showIngredientDetails } from '../../../services/actions/current-ingredient';
+import { showIngredientDetails } from '../../../services/current-ingredient/action';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import stylesIngredientCard from './ingredient-card.module.css';
 import { ingredientStructure } from '../../../utils/prop-types';

@@ -1,5 +1,5 @@
 import { logout } from "../../utils/auth-api";
-import { DELETE_USER_DATA } from "./user";
+import { DELETE_USER_DATA } from "../user/action";
 
 export const LOGOUT = 'LOGOUT';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';

@@ -1,4 +1,4 @@
-import { REGISTER_REQUEST, REGISTER_REQUEST_FAILED, REGISTER_REQUEST_SUCCESS } from "../actions/register";
+import { REGISTER_REQUEST, REGISTER_REQUEST_FAILED, REGISTER_REQUEST_SUCCESS } from "./action";
 
 const initialState = {
     feedRequest: false,

@@ -1,4 +1,4 @@
-import { GET_INITIAL_DATA, GET_INITIAL_DATA_FAILED, GET_INITIAL_DATA_SUCCESS } from "../actions/burger-ingredients";
+import { GET_INITIAL_DATA, GET_INITIAL_DATA_FAILED, GET_INITIAL_DATA_SUCCESS } from "./action";
 
 const initialState = {
     feedRequest: false,

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { handleResetPassword } from '../../services/actions/reset-password';
+import { handleResetPassword } from '../../services/reset-password/action';
 import { useDispatch } from 'react-redux';
 
 function ResetPassword() {

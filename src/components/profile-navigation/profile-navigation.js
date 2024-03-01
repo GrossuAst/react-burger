@@ -1,6 +1,6 @@
 import styles from './profile-navigation.module.css';
 import { NavLink, useNavigate, Outlet } from "react-router-dom";
-import { userLogout } from '../../services/actions/logout';
+import { userLogout } from '../../services/logout/action';
 import { useDispatch } from 'react-redux';
 
 function ProfileNavigation() {

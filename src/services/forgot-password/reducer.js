@@ -1,4 +1,4 @@
-import { FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_REQUEST_SUCCESS, FORGOT_PASSWORD_REQUEST_FAILED } from "../actions/forgot-password";
+import { FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_REQUEST_SUCCESS, FORGOT_PASSWORD_REQUEST_FAILED } from "./action";
 
 const initialState = {
     feedRequest: false,

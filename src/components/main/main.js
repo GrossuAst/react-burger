@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch } from 'react-redux';
-import { addIngredientInConstructor } from '../../services/actions/burger-constructor';
+import { addIngredientInConstructor } from '../../services/burger-constructor/action';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 

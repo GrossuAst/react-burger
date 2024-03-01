@@ -1,4 +1,4 @@
-import { UPDATE_USER, CHECK_AUTH, DELETE_USER_DATA } from "../actions/user";
+import { UPDATE_USER, CHECK_AUTH, DELETE_USER_DATA } from "./action";
 
 const initialState = {
     isAuthChecked: false,

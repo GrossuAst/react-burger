@@ -77,7 +77,6 @@ export function resetPassword(data) {
 };
 
 export function refreshToken() {
-    console.log(`${apiConfig.url + 'auth/token'}`)
     return fetch(`${apiConfig.url + 'auth/token'}`, {
         method: "POST",
         headers: {

@@ -1,6 +1,6 @@
 import { login, getUserData } from "../../utils/auth-api";
 
-import { UPDATE_USER, CHECK_AUTH } from "./user";
+import { UPDATE_USER, CHECK_AUTH } from "../user/action";
 
 export const GET_USER_DATA = 'GET_USER_DATA';
 export const GET_USER_DATA_SUCCESS = 'GET_USER_DATA_SUCCESS';

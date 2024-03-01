@@ -5,7 +5,7 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useForm } from '../../hooks/useForm';
 import { registerUser } from '../../utils/auth-api';
-import { registerRequest } from '../../services/actions/register';
+import { registerRequest } from '../../services/register/action';
 import { useDispatch } from 'react-redux';
 
 function Register() {

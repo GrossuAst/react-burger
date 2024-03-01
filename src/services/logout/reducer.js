@@ -1,4 +1,4 @@
-import { LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILED } from "../actions/logout";
+import { LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILED } from "./action";
 
 const initialState = {
     feedRequest: false,

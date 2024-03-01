@@ -1,4 +1,4 @@
-import { ACTIVE_INGREDIENT, DEACTIVE_INGREDIENT } from "../actions/current-ingredient";
+import { ACTIVE_INGREDIENT, DEACTIVE_INGREDIENT } from "./action";
 
 const initialState = {
     currentIngredient: null

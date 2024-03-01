@@ -5,7 +5,7 @@ import { useForm } from '../../hooks/useForm';
 import { useState, useRef } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Outlet, useLocation } from 'react-router-dom';
-import { updateUser } from '../../services/actions/edit-profile';
+import { updateUser } from '../../services/edit-profile/action';
 
 function Profile() {
     const dispatch = useDispatch();
