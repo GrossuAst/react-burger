@@ -1,57 +1,69 @@
+import styles from './constructor-item.module.css';
 import { DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientStructure } from "../../utils/prop-types";
-import PropTypes from 'prop-types';
-
 import { useRef, useCallback } from "react";
 import { useDrag, useDrop } from "react-dnd";
-
 import { useDispatch } from "react-redux";
 import { removeIngredient, moveInvgredient } from "../../services/burger-constructor/action";
+import { IIngredientInConstructor } from '../../types/types';
+import type { Identifier, XYCoord } from 'dnd-core'
 
-import styles from './constructor-item.module.css';
+interface IConstructorItem {
+  item: IIngredientInConstructor;
+  index: number;
+}
 
-function ConstructorItem({ item, index }) {
+interface DragItem {
+  index: number
+  id: string
+  type: string
+}
+
+const ConstructorItem = ({ item, index }: IConstructorItem) => {
     const dispatch = useDispatch();
 
-    const cardRef = useRef();
+    const cardRef = useRef<HTMLLIElement>(null);
 
     // удаление ингредиента
-    function handleDelete(id) {
+    function handleDelete(id: string) {
         dispatch(removeIngredient(id));
     };
 
-    const moveCard = useCallback((dragIndex, hoverIndex) => {
+    const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
       dispatch(moveInvgredient(dragIndex, hoverIndex))
     }, []);
 
-    const [{ handlerId }, drop] = useDrop({
+    const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
         accept: 'middle ingredient',
         collect(monitor) {
           return {
             handlerId: monitor.getHandlerId(),
           }
         },
-        hover(item, monitor) {
+        hover(item: DragItem, monitor) {
           if (!cardRef.current) {
             return
           }
+
           const dragIndex = item.index
           const hoverIndex = index
+
           if (dragIndex === hoverIndex) {
             return
           }
+
           const hoverBoundingRect = cardRef.current?.getBoundingClientRect()
-          const hoverMiddleY =
-            (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+          const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
           const clientOffset = monitor.getClientOffset()
-          const hoverClientY = clientOffset.y - hoverBoundingRect.top
+          const hoverClientY =(clientOffset as XYCoord).y - hoverBoundingRect.top
 
           if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
             return
           }
+
           if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
             return
           }
+
           moveCard(dragIndex, hoverIndex)
           item.index = hoverIndex
         },
@@ -74,24 +86,15 @@ function ConstructorItem({ item, index }) {
             ref={ cardRef }
             className={ `mr-2 ${styles.listItem}` }
         >
-            <DragIcon />
+            <DragIcon type='primary' />
             <ConstructorElement 
-                type={ item.type }
                 isLocked={ false }
                 text={ item.name }
                 price={ item.price }
                 thumbnail={ item.image_large }
-                handleClose={ () => handleDelete(item.key) }
             />
         </li>
     );
-};
-
-
-
-ConstructorItem.propTypes = {
-  item: ingredientStructure.isRequired,
-  index: PropTypes.number.isRequired,
 };
 
 export default ConstructorItem;

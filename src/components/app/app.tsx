@@ -22,6 +22,8 @@ import Modal from "../modal-window/modal/modal";
 import IngredientDetails from "../modal-window/ingredient-details/ingredient-details";
 import OrderDetails from "../modal-window/order-details/order-details";
 
+import { IIngredient } from '../../types/types';
+
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,27 +33,27 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [ingredientInModal, setIngredientInModal] = useState(null);
 
-  const { currentIngredient, ingredients } = useSelector(store => ({
+  const { currentIngredient, ingredients } = useSelector((store: any) => ({
     currentIngredient: store.currentIngredient,
     ingredients: store.ingredients.ingredients
   }), shallowEqual);
 
   useEffect(() => {
     if(ingredients.length === 0) {
-        dispatch(getInitialData());
+        dispatch(getInitialData() as any);
     };
   }, []);
 
-  function getIngredientById(id) {
+  function getIngredientById(id: string) {
     if(ingredients) {
-      const element = ingredients.find((item) => item._id === id);
+      const element = ingredients.find((item: IIngredient) => item._id === id);
       setIngredientInModal(element);
       element && state?.backgroundLocation && setIsModalOpen(true);
     }
   };
 
   useEffect(() => {
-    dispatch(checkUserAuth());
+    dispatch(checkUserAuth() as any);
   }, []);
 
   function handleCloseModal() {
@@ -106,7 +108,6 @@ function App() {
       <Modal
         isModalOpen={ isModalOpen }
         handleCloseModal={ handleCloseModal }
-        getIngredientById={ getIngredientById }
       >
         {
           !currentIngredient.currentIngredient && !ingredientInModal && <OrderDetails />

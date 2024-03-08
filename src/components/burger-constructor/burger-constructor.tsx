@@ -13,15 +13,19 @@ import diamond from "../../images/diamond36x36.svg";
 
 import stylesBurgerConstructor from "./burger-constructor.module.css";
 
-function BurgerConstructor({
-  handleOpenModal,
-  onDropHandler,
-}) {
+import { IIngredient, IIngredientInConstructor } from "../../types/types";
+
+interface IBurgerConstructorProps {
+  handleOpenModal: () => void;
+  onDropHandler: (item: IIngredient) => void;
+};
+
+const BurgerConstructor = ({ handleOpenModal, onDropHandler }: IBurgerConstructorProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const { ingredientsInConstructor, orderDetails, user } = useSelector(store => ({
+  const { ingredientsInConstructor, user } = useSelector((store: any) => ({
     ingredientsInConstructor: store.ingredientsInConstructor,
     orderDetails: store.orderDetails.orderDetails,
     user: store.userData.user
@@ -32,13 +36,13 @@ function BurgerConstructor({
   const bottomElement = topElement;
 
   const bunsId = topElement && topElement._id;
-  const middleElementsId = middleElements.map((i) => i._id);
+  const middleElementsId = middleElements.map((i: IIngredient) => i._id);
 
   const allIngredients = [bunsId, ...middleElementsId, bunsId];
 
   const [{ canDropTop }, dropRefTop] = useDrop({
     accept: 'bun',
-    drop(item) {
+    drop: (item: IIngredient) => {
       onDropHandler(item)
     },
     collect: monitor => ({
@@ -48,7 +52,7 @@ function BurgerConstructor({
 
   const [{ canDropMiddle }, dropRefMiddle] = useDrop({
     accept: 'mid',
-    drop(item) {
+    drop(item: IIngredient) {
       onDropHandler(item)
     },
     collect: monitor => ({
@@ -58,7 +62,7 @@ function BurgerConstructor({
 
   const [{ canDropBottom }, dropRefBottom] = useDrop({
     accept: 'bun',
-    drop(item) {
+    drop(item: IIngredient) {
       onDropHandler(item)
     },
     collect: monitor => ({
@@ -68,7 +72,7 @@ function BurgerConstructor({
 
   function handleOrderButtonClick() {
     if(user) {
-      dispatch(createOrder(allIngredients));
+      dispatch(createOrder(allIngredients) as any);
       handleOpenModal();  
     } else if(!user) {
       navigate('/login');
@@ -78,7 +82,7 @@ function BurgerConstructor({
 
   // вычисление стоимости
   function calculatePrice() {
-    const price = middleElements.map((i) => i.price).reduce((accumulator, current) => accumulator + current, 0) 
+    const price = middleElements.map((i: IIngredient) => i.price).reduce((accumulator: any, current: any) => accumulator + current, 0) 
     + (topElement && topElement.price * 2);
     setTotalPrice(price);
   };
@@ -94,7 +98,7 @@ function BurgerConstructor({
         {/* ______ верхняя булка ______ */}
         <div 
           className={ `mr-5 ${stylesBurgerConstructor.ingredientContainer} ${stylesBurgerConstructor.ingredientContainerTop}` }
-          style={canDropTop ? { outline: '2px dashed #4C4CFF' } : null}
+          style={canDropTop ? { outline: '2px dashed #4C4CFF' } : undefined}
           ref={ dropRefTop }
         >
           { 
@@ -117,7 +121,7 @@ function BurgerConstructor({
         >
           {
             middleElements.length > 0 ?
-            middleElements.map((item, index) => (
+            middleElements.map((item: IIngredientInConstructor, index: number) => (
               <ConstructorItem
                 key={ item.key }
                 item={ item }
@@ -128,7 +132,7 @@ function BurgerConstructor({
             (<li className={ `mr-2 ${stylesBurgerConstructor.listItem}` }>
               <div
                 className={ `${stylesBurgerConstructor.ingredientContainer}` }
-                style={canDropMiddle ? { outline: '2px dashed #4C4CFF' } : null}
+                style={canDropMiddle ? { outline: '2px dashed #4C4CFF' } : undefined}
               >
                 <p 
                   className={stylesBurgerConstructor.containerText} 
@@ -143,7 +147,7 @@ function BurgerConstructor({
         {/* ______ нижняя булка ______ */}
         <div 
           className={ `mr-5 ${stylesBurgerConstructor.ingredientContainer} ${stylesBurgerConstructor.ingredientContainerBottom}` }
-          style={canDropBottom ? { outline: '2px dashed #4C4CFF' } : null}
+          style={canDropBottom ? { outline: '2px dashed #4C4CFF' } : undefined}
           ref={ dropRefBottom }
         >
           { 
