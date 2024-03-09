@@ -1,10 +1,16 @@
+import React, { ReactNode } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 
-function ProtectedRoute({ onlyUnAuth = false, component }) {
+interface IProtectedRouteProps {
+    onlyUnAuth: boolean;
+    component: ReactNode;
+};
+
+const ProtectedRoute = ({ onlyUnAuth = false, component }: IProtectedRouteProps) => {
     const location = useLocation();
 
-    const { user, didEmailEnter } = useSelector(store => ({
+    const { user, didEmailEnter } = useSelector((store: any) => ({
         user: store.userData.user,
         didEmailEnter: store.forgotPassword.feedSucces
     }), shallowEqual);
@@ -23,7 +29,9 @@ function ProtectedRoute({ onlyUnAuth = false, component }) {
         return <Navigate to='/login' state={{ from: location }} />
     }
 
-    return component;
+    const Component = component as React.ReactElement;
+
+    return Component;
 };
 
 export default ProtectedRoute;

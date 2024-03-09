@@ -44,7 +44,7 @@ function App() {
     };
   }, []);
 
-  function getIngredientById(id: string) {
+  function getIngredientById(id: string): void {
     if(ingredients) {
       const element = ingredients.find((item: IIngredient) => item._id === id);
       setIngredientInModal(element);

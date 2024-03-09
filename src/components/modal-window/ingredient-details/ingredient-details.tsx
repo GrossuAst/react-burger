@@ -2,13 +2,18 @@ import { useSelector, shallowEqual } from 'react-redux';
 import stylesIngredientDetails from './ingredient-details.module.css';
 import { useParams } from 'react-router-dom';
 import { useEffect } from "react";
-import PropTypes from 'prop-types';
-import { ingredientStructure } from '../../../utils/prop-types';
 
-function IngredientDetails({ ingredientInModal, getIngredientById }) {
+import { IIngredient } from '../../../types/types';
+
+interface IIngredientDetailsProps {
+    ingredientInModal: IIngredient | null;
+    getIngredientById: (id: string) => void;
+};
+
+const IngredientDetails = ({ ingredientInModal, getIngredientById }: IIngredientDetailsProps) => {
     const { id } = useParams();
 
-    const { currentIngredient, ingredients } = useSelector(store => ({
+    const { currentIngredient, ingredients } = useSelector((store: any) => ({
         currentIngredient: store.currentIngredient.currentIngredient,
         ingredients: store.ingredients.ingredients
     }), shallowEqual);
@@ -16,7 +21,9 @@ function IngredientDetails({ ingredientInModal, getIngredientById }) {
     const { name, image, calories, carbohydrates, fat, proteins } = currentIngredient || ingredientInModal || {};
 
     useEffect(() => {
-        getIngredientById(id);
+        if(id) {
+            getIngredientById(id);
+        }
     }, [ingredients]);
 
     return (
@@ -49,11 +56,6 @@ function IngredientDetails({ ingredientInModal, getIngredientById }) {
             </ul>
         </article>
     );
-};
-
-IngredientDetails.propTypes = {
-    getIngredientById: PropTypes.func.isRequired,
-    ingredientInModal: ingredientStructure
 };
 
 export default IngredientDetails;
