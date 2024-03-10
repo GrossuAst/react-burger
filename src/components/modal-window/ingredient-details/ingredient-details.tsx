@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { IIngredient } from '../../../types/types';
 
 interface IIngredientDetailsProps {
-    ingredientInModal: IIngredient | null;
+    ingredientInModal?: IIngredient | null;
     getIngredientById: (id: string) => void;
 };
 

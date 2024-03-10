@@ -4,9 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useForm } from '../../hooks/useForm';
-import { registerUser } from '../../utils/auth-api';
 import { registerRequest } from '../../services/register/action';
 import { useDispatch } from 'react-redux';
+import { FormEvent } from 'react';
 
 function Register() {
     const navigate = useNavigate();
@@ -25,10 +25,10 @@ function Register() {
         navigate('/login');
     };
 
-    function handleSubmitForm(e) {
+    function handleSubmitForm(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if(values.name && values.email && values.password) {
-            dispatch(registerRequest(values, successfulHandler));
+            dispatch(registerRequest(values, successfulHandler) as any);
         }
         return
     };

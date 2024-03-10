@@ -6,6 +6,7 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { loginUser } from '../../services/login/action';
 import { useDispatch } from 'react-redux';
+import { FormEvent } from 'react';
 
 function Login() {
     const dispatch = useDispatch();
@@ -24,10 +25,10 @@ function Login() {
         navigate('/');
     };
 
-    function handleSubmitForm(e) {
+    function handleSubmitForm(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if(values.email && values.password) {
-            dispatch(loginUser(values, successfulHandler));
+            dispatch(loginUser(values, successfulHandler) as any);
         }
         return
     };

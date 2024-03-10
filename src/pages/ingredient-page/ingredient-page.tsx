@@ -4,23 +4,26 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { ACTIVE_INGREDIENT } from "../../services/current-ingredient/action";
-import PropTypes from 'prop-types';
-
 import IngredientDetails from "../../components/modal-window/ingredient-details/ingredient-details";
+import { IIngredient } from '../../types/types';
 
-function IngredientPage({ getIngredientById }) {
+interface IIngredientPageProps {
+    getIngredientById: (id: string) => void;
+};
+
+const IngredientPage = ({ getIngredientById }: IIngredientPageProps) => {
     const dispatch = useDispatch();
 
-    const { ingredients, currentIngredient } = useSelector(store => ({
+    const { ingredients, currentIngredient } = useSelector((store: any) => ({
         ingredients: store.ingredients.ingredients,
         currentIngredient: store.currentIngredient.currentIngredient
     }), shallowEqual);
 
     const { id } = useParams();
 
-    function checkIngredient(id) {
+    function checkIngredient(id: string) {
         if(ingredients) {
-            const element = ingredients.find((i) => i._id === id);
+            const element = ingredients.find((i: IIngredient) => i._id === id);
             element && dispatch({
               type: ACTIVE_INGREDIENT,
               payload: { data: element }
@@ -39,10 +42,6 @@ function IngredientPage({ getIngredientById }) {
             {currentIngredient ? <IngredientDetails getIngredientById={ getIngredientById } /> : !currentIngredient && <PreloaderOrderDeatails /> }
         </section>
     )
-};
-
-IngredientPage.propTypes = {
-    getIngredientById: PropTypes.func.isRequired,
 };
 
 export default IngredientPage;
