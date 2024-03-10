@@ -12,7 +12,7 @@ function ProfileNavigation() {
     };
 
     function handleLogut() {
-        dispatch(userLogout(successfulHandler));
+        dispatch(userLogout(successfulHandler) as any);
     };
 
     return (

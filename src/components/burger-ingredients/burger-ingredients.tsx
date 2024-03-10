@@ -10,33 +10,49 @@ import IngredientCard from "./ingredient-card/ingredient-card";
 
 import stylesBurgerIngredients from './burger-ingredients.module.css';
 
-function BurgerIngredients({
-    handleOpenModal
-}) {
+import { IIngredient } from "../../types/types";
+
+interface IBurgerIngredients {
+    handleOpenModal: () => void;
+};
+
+const BurgerIngredients = ({ handleOpenModal }: IBurgerIngredients) => {
     const location = useLocation();
     const [current, setCurrent] = useState('buns');
-    const bunsRef = useRef();
-    const mainsRef = useRef();
-    const saucesRef = useRef();
+    const bunsRef = useRef<HTMLUListElement>(null);
+    const mainsRef = useRef<HTMLUListElement>(null);
+    const saucesRef = useRef<HTMLUListElement>(null);
 
-    const { ingredients } = useSelector(store => ({
+    const { ingredients } = useSelector((store: any) => ({
         ingredients: store.ingredients,
         currentIngredient: store.currentIngredient,
     }), shallowEqual);
 
-    const buns = useMemo(() => ingredients.ingredients.filter((e) => e.type === 'bun'), [ingredients.ingredients]);
-    const mains = useMemo(() => ingredients.ingredients.filter((e) => e.type === 'main'), [ingredients.ingredients]);
-    const sauces = useMemo(() => ingredients.ingredients.filter((e) => e.type === 'sauce'), [ingredients.ingredients]);
+    const buns = useMemo(() => ingredients.ingredients.filter((e: IIngredient) => e.type === 'bun'), [ingredients.ingredients]);
+    const mains = useMemo(() => ingredients.ingredients.filter((e: IIngredient) => e.type === 'main'), [ingredients.ingredients]);
+    const sauces = useMemo(() => ingredients.ingredients.filter((e: IIngredient) => e.type === 'sauce'), [ingredients.ingredients]);
 
     function calculateTab() {
-        if(saucesRef.current.getBoundingClientRect().top < 321 && saucesRef.current.getBoundingClientRect().top > -200 ) {
-            setCurrent('sauces');
-        } else if (bunsRef.current.getBoundingClientRect().top < 321 && bunsRef.current.getBoundingClientRect().top > 35) {
-            setCurrent('buns');
-        } else if (mainsRef.current.getBoundingClientRect().top < 321) {
-            setCurrent('mains');
+        if(saucesRef.current) {
+            const saucesTop = saucesRef.current.getBoundingClientRect().top;
+            if(saucesTop < 321 && saucesTop > -200) {
+                setCurrent('sauces')
+                return;
+            }
         }
-        return
+        if(bunsRef.current) {
+            const bunsTop = bunsRef.current.getBoundingClientRect().top;
+            if(bunsTop < 321 && bunsTop > 35) {
+                setCurrent('buns');
+                return;
+            }
+        }
+        if(mainsRef.current) {
+            const mainsTop = mainsRef.current.getBoundingClientRect().top;
+            if(mainsTop < 321) {
+                setCurrent('mains');
+            }
+        }
     };
 
     return (
@@ -58,7 +74,7 @@ function BurgerIngredients({
                     <h2 className={ `mb-6 ${stylesBurgerIngredients.ingredientName}` }>Булки</h2>
                     <ul className={ `pl-4 mb-10 ${stylesBurgerIngredients.list}` } ref={ bunsRef }>
                         {
-                            buns.map((i) => (
+                            buns.map((i: IIngredient) => (
                                 <li key={ i._id } className={ stylesBurgerIngredients.listItem }>
                                     <Link className={ stylesBurgerIngredients.link } 
                                         to={`/ingredients/${i._id}`}
@@ -79,7 +95,7 @@ function BurgerIngredients({
                     <h2 className={ `mb-6 mt-10 ${stylesBurgerIngredients.ingredientName}` }>Соусы</h2>
                     <ul className={ `pl-4 ${stylesBurgerIngredients.list}` } ref={ saucesRef }>
                         {
-                            sauces.map((i) => (
+                            sauces.map((i: IIngredient) => (
                                 <li key={ i._id } className={ stylesBurgerIngredients.listItem }>
                                     <Link className={ stylesBurgerIngredients.link }
                                         to={`/ingredients/${i._id}`}
@@ -100,7 +116,7 @@ function BurgerIngredients({
                     <h2 className={ `mb-6 mt-10 ${stylesBurgerIngredients.ingredientName}` }>Начинки</h2>
                     <ul className={ `pl-4 ${stylesBurgerIngredients.list}` } ref={ mainsRef }>
                         {
-                            mains.map((i) => (
+                            mains.map((i: IIngredient) => (
                                 <li key={ i._id } className={ stylesBurgerIngredients.listItem }>
                                     <Link className={ stylesBurgerIngredients.link }
                                         to={`/ingredients/${i._id}`}

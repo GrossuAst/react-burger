@@ -1,10 +1,10 @@
 import styles from './forgot-password.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
-import { restorePassword } from '../../utils/auth-api';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { forgotPasswordRequest } from '../../services/forgot-password/action';
 import { useDispatch } from 'react-redux';
+import { FormEvent } from 'react';
 
 function ForgotPassword() {
     const dispatch = useDispatch();
@@ -17,10 +17,10 @@ function ForgotPassword() {
         navigate('/reset-password');
     };
 
-    function handleSubmitForm(e) {
+    function handleSubmitForm(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if(values.email) {
-            dispatch(forgotPasswordRequest(values.email, successfulHandler));
+            dispatch(forgotPasswordRequest(values.email, successfulHandler) as any);
         }
         return
     };

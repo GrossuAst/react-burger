@@ -1,13 +1,19 @@
-import React from "react";
-import PropTypes from 'prop-types';
+import React, { ReactNode } from "react";
 
 import stylesModalOverlay from './modal-overlay.module.css';
 
-function ModalOverlay({ children, isModalOpen, handleCloseModal }) {
+interface IModalOverlayProps {
+    children: ReactNode;
+    isModalOpen: boolean;
+    handleCloseModal: () => void;
+};
 
-    function handleOverlayClick(e) {
+const ModalOverlay = ({ children, isModalOpen, handleCloseModal }: IModalOverlayProps) => {
+
+    const handleOverlayClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
         const overlayClass = stylesModalOverlay.overlay;
-        if (e.target.classList.contains(overlayClass)) {
+        const target = e.target as HTMLElement;
+        if (target.classList.contains(overlayClass)) {
             handleCloseModal();
         }
     };
@@ -20,12 +26,6 @@ function ModalOverlay({ children, isModalOpen, handleCloseModal }) {
             { children }
         </div>
     )
-};
-
-ModalOverlay.propTypes = {
-    children: PropTypes.node.isRequired,
-    isModalOpen: PropTypes.bool.isRequired,
-    handleCloseModal: PropTypes.func.isRequired
 };
 
 export default ModalOverlay;

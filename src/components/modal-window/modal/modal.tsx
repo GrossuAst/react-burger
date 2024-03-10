@@ -1,18 +1,19 @@
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import ReactDOM from "react-dom";
-import PropTypes from 'prop-types';
 import stylesModal from './modal.module.css';
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
 const modalRoot = document.querySelector('#modal-root');
 
-function Modal({
-    children,
-    isModalOpen,
-    handleCloseModal,
-}) {    
+interface IModalProps {
+    children: ReactNode;
+    isModalOpen: boolean;
+    handleCloseModal: () => void;
+};
 
-    function handleEscPress(e) {
+function Modal({ children, isModalOpen, handleCloseModal}: IModalProps) {    
+
+    function handleEscPress(e: KeyboardEvent) {
         if(e.key === 'Escape') {
             handleCloseModal();
         };
@@ -26,7 +27,7 @@ function Modal({
         } 
     }, []);
 
-    return ReactDOM.createPortal(
+    return modalRoot ? ReactDOM.createPortal(
         (
             <>
                 <ModalOverlay 
@@ -48,16 +49,7 @@ function Modal({
                 </ModalOverlay>
             </>
         ), modalRoot
-    );
-};
-
-Modal.propTypes = {
-    isModalOpen: PropTypes.bool.isRequired,
-    handleCloseModal: PropTypes.func.isRequired,
-    currentIngredient: PropTypes.oneOfType([
-        PropTypes.ingredientStructure,
-        PropTypes.oneOf([null])
-    ])
+    ) : null;
 };
 
 export default Modal;

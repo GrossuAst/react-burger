@@ -2,10 +2,11 @@ import styles from './profile.module.css';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import ProfileNavigation from '../../components/profile-navigation/profile-navigation';
 import { useForm } from '../../hooks/useForm';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Outlet, useLocation } from 'react-router-dom';
 import { updateUser } from '../../services/edit-profile/action';
+import { FormEvent } from 'react';
 
 function Profile() {
     const dispatch = useDispatch();
@@ -14,7 +15,7 @@ function Profile() {
     const isProfilePage = location.pathname === '/profile';
     const isOrdersPage = location.pathname === '/profile/orders';
 
-    const { user } = useSelector(store => ({
+    const { user } = useSelector((store: any) => ({
         user: store.userData.user
     }), shallowEqual);
 
@@ -25,14 +26,14 @@ function Profile() {
     const { values, handleChange, setValues } = useForm({ name: user.name, email: user.email, password: 'qwerty' });
 
     const valuesToSend = () => {
-        const data = {};
+        const data: {name?: string; email?: string; password?: string;} = {};
         (values.name !== user.name) && (data.name = values.name);
         (values.email !== user.email) && (data.email = values.email);
         (values.password !== 'qwerty') && (data.password = values.password);
         return data;
     };
 
-    function handleEditForm(formName) {
+    function handleEditForm(formName: 'name' | 'email' | 'password') {
         formName === 'name' && setNameInputActive(true);
         formName === 'email' && setEmailInputActive(true);
         formName === 'password' && setPassInputActive(true);
@@ -54,9 +55,9 @@ function Profile() {
         setPassInputActive(false);
     };
 
-    function handleSubmitForm(e) {
+    function handleSubmitForm(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        dispatch(updateUser(valuesToSend(), handleSuccessful));
+        dispatch(updateUser(valuesToSend(), handleSuccessful) as any);
     };
 
     return(
@@ -106,7 +107,6 @@ function Profile() {
                             </Button >
                             <Button
                                 htmlType={ 'submit' }
-                                onSubmit={ handleSubmitForm }
                                 disabled={ checkDisabled() }
                             >
                                 Сохранить

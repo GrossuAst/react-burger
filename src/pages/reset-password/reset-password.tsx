@@ -6,6 +6,7 @@ import { useForm } from '../../hooks/useForm';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { handleResetPassword } from '../../services/reset-password/action';
 import { useDispatch } from 'react-redux';
+import { FormEvent } from 'react';
 
 function ResetPassword() {
     const dispatch = useDispatch();
@@ -25,10 +26,10 @@ function ResetPassword() {
         navigate('/login');
     }
 
-    function handleSubmitForm(e) {
+    function handleSubmitForm(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if(values.password && values.code) {
-            dispatch(handleResetPassword(values, successfulHanler));
+            dispatch(handleResetPassword(values, successfulHanler) as any);
         }
         return
     };

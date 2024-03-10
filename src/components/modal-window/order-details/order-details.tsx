@@ -6,7 +6,7 @@ import doneLogo from '../../../images/done.png';
 import PreloaderOrderDeatails from "../../ui/preloader-order-details/preloader-order-details";
 
 function OrderDetails() {
-    const { orderDetails, feedRequest } = useSelector(store => ({
+    const { orderDetails, feedRequest } = useSelector((store: any) => ({
         orderDetails: store.orderDetails,
         feedRequest: store.orderDetails.feedRequest
     }), shallowEqual);

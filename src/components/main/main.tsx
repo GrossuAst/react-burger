@@ -1,18 +1,20 @@
 import stylesMain from './main.module.css';
-import PropTypes from 'prop-types';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch } from 'react-redux';
 import { addIngredientInConstructor } from '../../services/burger-constructor/action';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+import { IIngredientInConstructor } from '../../types/types';
 
-function Main({
-    handleOpenModal,
-}) {
+interface IMainProps {
+    handleOpenModal: () => void;
+}
+
+const Main = ({ handleOpenModal }: IMainProps) => {
     const dispatch = useDispatch();
 
-    function onDropHandler(item) {
+    function onDropHandler(item: IIngredientInConstructor) {
         dispatch(addIngredientInConstructor(item));
     };
 
@@ -30,10 +32,6 @@ function Main({
             </main>
         </DndProvider>
     )
-};
-
-Main.propTypes = {
-    handleOpenModal: PropTypes.func.isRequired,
 };
 
 export default Main;
