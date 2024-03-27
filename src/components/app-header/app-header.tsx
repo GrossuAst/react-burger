@@ -24,13 +24,13 @@ function AppHeader() {
                         </li>
                         <li className={ stylesAppHeader.navItem }>
 
-                            <NavLink to='/news'
+                            <NavLink to='/feed'
                                 className={`pt-4 pb-4 pr-5 pl-5 ${stylesAppHeader.link}`}
                             >
                                 {({isActive}) => (
                                     <>
                                         <ListIcon type={ isActive ? 'primary' : 'secondary' } />
-                                        <p className={ `${isActive ? '' : 'text_color_inactive'} text text_type_main-default ml-2` }>Лента новостей</p>
+                                        <p className={ `${isActive ? '' : 'text_color_inactive'} text text_type_main-default ml-2` }>Лента заказов</p>
                                     </>
                                 )}
                             </NavLink>

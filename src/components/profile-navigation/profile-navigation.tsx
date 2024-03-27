@@ -1,5 +1,5 @@
 import styles from './profile-navigation.module.css';
-import { NavLink, useNavigate, Outlet } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { userLogout } from '../../services/logout/action';
 import { useDispatch } from 'react-redux';
 

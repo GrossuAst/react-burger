@@ -1,0 +1,102 @@
+.card {
+    width: 584px;
+    height: 182px;
+    background: rgb(28, 28, 33);
+    border-radius: 40px;
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.mainInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.orderNumber {
+    margin: 0;
+    font-family: 'Iceland';
+    font-size: 28px;
+}
+
+.ingredientsContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ingredients {
+    list-style: none;
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    position: relative;
+    width: 320px;
+}
+
+.listItem {
+    border-radius: 50%;
+    border: 2px solid #801ab3;
+    display: flex;
+    justify-content: center;
+    height: 64px;
+    width: 64px;
+    background: rgb(19, 19, 22);
+}
+
+.listItem:nth-child(2) {
+    position: absolute;
+    left: 44px;
+}
+
+.listItem:nth-child(3) {
+    position: absolute;
+    left: calc(64px * 2 - 34px);
+}
+
+.listItem:nth-child(4) {
+    position: absolute;
+    left: calc(64px * 3 - 48px);
+}
+
+.listItem:nth-child(5) {
+    position: absolute;
+    left: calc(64px * 4 - 62px);
+}
+
+.listItem:nth-child(6) {
+    position: absolute;
+    left: calc(64px * 5 - 76px);
+}
+
+.listItem:nth-child(6)::after {
+    content: '+3';
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.ingredientImage {
+    object-fit: contain;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.priceNumber {
+    margin: 0;
+    font-family: 'Iceland';
+    font-size: 28px;
+}
+
+.diamond {
+    width: 22px;
+    height: 22px;
+}

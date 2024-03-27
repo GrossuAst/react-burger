@@ -15,6 +15,7 @@ import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import ResetPassword from '../../pages/reset-password/reset-password';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import IngredientPage from '../../pages/ingredient-page/ingredient-page';
+import Feed from '../../pages/feed/feed';
 
 import ProtectedRoute from '../protected-route/protected-route';
 import AppHeader from "../app-header/app-header";
@@ -77,7 +78,13 @@ function App() {
           element={ <Home handleOpenModal={ handleOpenModal } /> }
         />
 
-        <Route path='/ingredients/:id' element={ <IngredientPage getIngredientById={ getIngredientById }/> } />
+        <Route path='/feed' element={ <Feed /> } >
+          <Route path=':number' element={ <Orders /> } />
+        </Route>
+
+        <Route path='/ingredients/:id' 
+          element={ <IngredientPage getIngredientById={ getIngredientById }/> } 
+        />
 
         <Route path='/login'
           element={ <ProtectedRoute onlyUnAuth={ true } component={ <Login /> } /> }
@@ -96,7 +103,7 @@ function App() {
         />
 
         <Route path='/profile' element={ <ProtectedRoute onlyUnAuth={ false } component={ <Profile /> } /> } >
-          <Route path='orders' element={ <Orders /> } />
+          <Route path=':orders' element={ <Orders /> } />
         </Route>
 
         <Route path='*'
